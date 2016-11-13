@@ -1,13 +1,13 @@
 import java.util.ArrayList;
 
 public class Publication {
-	String Title;
+	String Title = "---";
 	ArrayList<String> Authors = new ArrayList<String>();
-	int year;
-	String pages;
-	String volume;
-	String journal;
-	String url;
+	int year = 0;
+	String pages = "---";
+	String volume = "---";
+	String journal = "---";
+	String url = "---";
 	
 	public String toString(){
 		String str = "Title: "+Title+"\nAuthors: "+Authors.toString()+
