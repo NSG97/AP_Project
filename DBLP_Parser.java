@@ -12,7 +12,6 @@ import org.xml.sax.InputSource;
 public class DBLP_Parser extends Database{
 	Publication P;
 	Person newAuthor;
-	int i=0;
 	boolean bTitle = false;
 	boolean bAuthors = false;
 	boolean bPages = false;
@@ -21,15 +20,14 @@ public class DBLP_Parser extends Database{
 	boolean bJournal = false;
 	boolean bURL = false;
 	
-	public void startElement(String uri,String localName,
-			String qName,Attributes attributes)
+	public void startElement(String uri,String localName, String qName,Attributes attributes)
 			throws SAXException{
-		if(qName.equalsIgnoreCase("article") || qName.equalsIgnoreCase("proceedings") 
-				|| qName.equalsIgnoreCase("inproceedings") || qName.equalsIgnoreCase("incollection")
-				|| qName.equalsIgnoreCase("book") || qName.equalsIgnoreCase("phdthesis")
-				|| qName.equalsIgnoreCase("mastersthesis")){
-			System.out.println(++i+": "+attributes.getValue("key"));
+		if(qName.equalsIgnoreCase("article") || qName.equalsIgnoreCase("proceedings") || qName.equalsIgnoreCase("inproceedings") || qName.equalsIgnoreCase("incollection")
+				|| qName.equalsIgnoreCase("book") || qName.equalsIgnoreCase("phdthesis") || qName.equalsIgnoreCase("mastersthesis")){
 			P = new Publication();
+		}
+		else if(qName.equalsIgnoreCase("www")){
+			newAuthor = new Person();
 		}
 		else if(qName.equalsIgnoreCase("title")){
 			bTitle = true;
@@ -54,80 +52,65 @@ public class DBLP_Parser extends Database{
 		}
 	}
 	
-	public void endElement(String uri, String localName,
-			String qName) throws SAXException {
-		if(qName.equalsIgnoreCase("article") || qName.equalsIgnoreCase("proceedings")
-				|| qName.equalsIgnoreCase("inproceedings") || qName.equalsIgnoreCase("incollection")
-				|| qName.equalsIgnoreCase("book") || qName.equalsIgnoreCase("phdthesis")
-				|| qName.equalsIgnoreCase("mastersthesis")){
-			System.out.println(i+" END");
+	public void endElement(String uri, String localName, String qName) throws SAXException {
+		if(qName.equalsIgnoreCase("article") || qName.equalsIgnoreCase("proceedings") || qName.equalsIgnoreCase("inproceedings") || qName.equalsIgnoreCase("incollection")
+				|| qName.equalsIgnoreCase("book") || qName.equalsIgnoreCase("phdthesis") || qName.equalsIgnoreCase("mastersthesis")){
 			this.DB.add(P);
 			P=null;
 		}
+		else if(qName.equalsIgnoreCase("www")){
+			if(newAuthor.Names.size()!=0){
+				this.Persons.add(newAuthor);
+			}
+			newAuthor=null;
+		}
 	}
 	
-	public void characters(char ch[], int start,
-			int length) throws SAXException {
-		if(bTitle){
-			System.out.println(i+" Title: "+new String(ch,start,length)); 
+	public void characters(char ch[], int start,int length) throws SAXException {
+		if(bTitle){ 
 			if(P!=null){
 				P.Title = new String(ch,start,length);
-				bTitle = false;
 			}
+			bTitle = false;
 		}
 		else if(bAuthors){
-			//System.out.println(i+" Author: "+new String(ch,start,length));
 			if(P!=null){
 				P.Authors.add(new String(ch,start,length));
-				bAuthors = false;
 			}
+			else if(newAuthor!=null){
+				newAuthor.Names.add(new String(ch,start,length));
+			}
+			bAuthors = false;
 		}
 		else if(bPages){
-			//System.out.println(i+" Pages: "+new String(ch,start,length));
 			if(P!=null){
 				P.pages = new String(ch,start,length);
-				bPages = false;
 			}
+			bPages = false;
 		}
 		else if(bYear){
-			String temp = new String(ch,start,length);
-			System.out.println(i+" Year: "+temp);
 			if(P!=null){
-				try{
-					P.year=Integer.parseInt(temp);
-				}
-				catch(Exception e){
-					e.printStackTrace();
-					try {
-						Thread.sleep(2000);
-					} catch (InterruptedException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
-				}
-				bYear = false;
+				P.year=Integer.parseInt(new String(ch,start,length));
 			}
+			bYear = false;
 		}
 		else if(bVolume){
-			//System.out.println(i+" Volume: "+new String(ch,start,length));
 			if(P!=null){
 				P.volume=new String(ch,start,length);
-				bVolume = false;
 			}
+			bVolume = false;
 		}
 		else if(bJournal){
-			//System.out.println(i+" Journal: "+new String(ch,start,length));
 			if(P!=null){
 				P.journal=new String(ch,start,length);
-				bJournal = false;
 			}
+			bJournal = false;
 		}
 		else if(bURL){
-			//System.out.println(i+" URL: "+new String(ch,start,length));
 			if(P!=null){
 				P.url=new String(ch,start,length);
-				bURL = false;
 			}
+			bURL = false;
 		}
 	}
 	
@@ -143,15 +126,28 @@ public class DBLP_Parser extends Database{
 			 SAXParserFactory factory = SAXParserFactory.newInstance();
 			 SAXParser saxParser = factory.newSAXParser();
 			 DBLP_Parser userhandler = new DBLP_Parser();
+			 
+			 long t=System.currentTimeMillis();
+			 System.out.println("Start: "+t);
 			 saxParser.parse(is,userhandler);
+			 long t2=System.currentTimeMillis();
+			 System.out.println("End: "+t2);
+			 System.out.println("Time Taken: "+(t2-t)+"ms");
+			 
+			 System.out.println("No of Publication: "+userhandler.DB.size());
+			 System.out.println("No of Authors(Persons): "+userhandler.Persons.size());
 			 Scanner in = new Scanner(System.in);
-			 int i=1;
-			 while(i>0){
-				 System.out.print("Enter: ");
+			 int i=0;
+			 while(i>=0){
+				 System.out.print("\nEnter Publication no: ");
 				 i=in.nextInt();
 				 System.out.println(userhandler.DB.get(i));
+				 System.out.print("\nEnter Person no: ");
+				 i=in.nextInt();
+				 System.out.println(userhandler.Persons.get(i));
 			 }
 			 in.close();
+			 
 		 }
 		 catch(Exception e){
 			 e.printStackTrace();
