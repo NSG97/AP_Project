@@ -1,27 +1,13 @@
-import java.io.*;
-import java.nio.charset.Charset;
-import java.util.Scanner;
-
-import javax.xml.parsers.SAXParser;
-import javax.xml.parsers.SAXParserFactory;
-
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
-import org.xml.sax.InputSource;
 
 public class DBLP_Parser extends Database{
-	Publication P;
-	Person newAuthor;
-	boolean bTitle = false;
-	boolean bAuthors = false;
-	boolean bPages = false;
-	boolean bYear = false;
-	boolean bVolume = false;
-	boolean bJournal = false;
-	boolean bURL = false;
+	private Publication P;
+	private Person newAuthor;
+	private boolean bTitle = false, bAuthors = false,bPages = false,bYear = false;
+	private boolean bVolume = false,bJournal = false,bURL = false;
 	
-	public void startElement(String uri,String localName, String qName,Attributes attributes)
-			throws SAXException{
+	public void startElement(String uri,String localName, String qName,Attributes attributes) throws SAXException{
 		if(qName.equalsIgnoreCase("article") || qName.equalsIgnoreCase("proceedings") || qName.equalsIgnoreCase("inproceedings") || qName.equalsIgnoreCase("incollection")
 				|| qName.equalsIgnoreCase("book") || qName.equalsIgnoreCase("phdthesis") || qName.equalsIgnoreCase("mastersthesis")){
 			P = new Publication();
@@ -113,44 +99,4 @@ public class DBLP_Parser extends Database{
 			bURL = false;
 		}
 	}
-	
-	 public static void main(String[] args){
-		 try{
-			 
-			 File inputFile = new File("dblp.xml");
-			 InputStream inputStream = new FileInputStream(inputFile);
-			 Reader reader = new InputStreamReader(inputStream,Charset.forName("ISO-8859-1"));
-			 InputSource is = new InputSource(reader);
-			 is.setEncoding("ISO-8859-1");
-			 
-			 SAXParserFactory factory = SAXParserFactory.newInstance();
-			 SAXParser saxParser = factory.newSAXParser();
-			 DBLP_Parser userhandler = new DBLP_Parser();
-			 
-			 long t=System.currentTimeMillis();
-			 System.out.println("Start: "+t);
-			 saxParser.parse(is,userhandler);
-			 long t2=System.currentTimeMillis();
-			 System.out.println("End: "+t2);
-			 System.out.println("Time Taken: "+(t2-t)+"ms");
-			 
-			 System.out.println("No of Publication: "+userhandler.DB.size());
-			 System.out.println("No of Authors(Persons): "+userhandler.Persons.size());
-			 Scanner in = new Scanner(System.in);
-			 int i=0;
-			 while(i>=0){
-				 System.out.print("\nEnter Publication no: ");
-				 i=in.nextInt();
-				 System.out.println(userhandler.DB.get(i));
-				 System.out.print("\nEnter Person no: ");
-				 i=in.nextInt();
-				 System.out.println(userhandler.Persons.get(i));
-			 }
-			 in.close();
-			 
-		 }
-		 catch(Exception e){
-			 e.printStackTrace();
-		 }
-	 }
 }
