@@ -31,7 +31,10 @@ public class Database extends DefaultHandler{
 		names = RelevantNames.iterator();
 		
 		while(names.hasNext()){
-			Result.addAll(AtoPub.get(names.next()));
+			ArrayList<Publication> temp;
+			if((temp=AtoPub.get(names.next()))!=null)
+				Result.addAll(temp);
+			
 		}
 		
 		return Result;

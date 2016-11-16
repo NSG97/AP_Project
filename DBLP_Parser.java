@@ -48,9 +48,7 @@ public class DBLP_Parser extends Database{
 			while(autIter.hasNext()){
 				String temp = autIter.next();
 				if(AtoPub.containsKey(temp)){
-					ArrayList<Publication> Ptemp = AtoPub.get(temp);
-					Ptemp.add(P);
-					AtoPub.put(temp,Ptemp);
+					AtoPub.get(temp).add(P);
 				}
 				else{
 					ArrayList<Publication> Ptemp = new ArrayList<Publication>();

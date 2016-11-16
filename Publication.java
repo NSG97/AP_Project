@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class Publication {
+public class Publication implements Comparable<Publication>{
 	private String Title = "---";
 	private ArrayList<String> Authors = new ArrayList<String>();
 	private int year = 0;
@@ -46,5 +46,13 @@ public class Publication {
 				"\nJournal: "+journal+
 				"\nURL: "+url+"\n";
 		return str;
+	}
+	public int compareTo(Publication arg0) {
+		if(this.year==0)
+			return Integer.MAX_VALUE;
+		else if(arg0.year==0)
+			return Integer.MIN_VALUE;
+		else
+			return (this.year-arg0.year);
 	}
 }
