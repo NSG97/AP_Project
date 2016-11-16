@@ -1,5 +1,6 @@
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
+import java.util.*;
 
 public class DBLP_Parser extends Database{
 	private Publication P;
@@ -42,10 +43,25 @@ public class DBLP_Parser extends Database{
 		if(qName.equalsIgnoreCase("article") || qName.equalsIgnoreCase("proceedings") || qName.equalsIgnoreCase("inproceedings") || qName.equalsIgnoreCase("incollection")
 				|| qName.equalsIgnoreCase("book") || qName.equalsIgnoreCase("phdthesis") || qName.equalsIgnoreCase("mastersthesis")){
 			this.DB.add(P);
+			ArrayList<String> aut = P.getAuthors();
+			Iterator<String> autIter = aut.iterator();
+			while(autIter.hasNext()){
+				String temp = autIter.next();
+				if(AtoPub.containsKey(temp)){
+					ArrayList<Publication> Ptemp = AtoPub.get(temp);
+					Ptemp.add(P);
+					AtoPub.put(temp,Ptemp);
+				}
+				else{
+					ArrayList<Publication> Ptemp = new ArrayList<Publication>();
+					Ptemp.add(P);
+					AtoPub.put(temp,Ptemp);
+				}
+			}
 			P=null;
 		}
 		else if(qName.equalsIgnoreCase("www")){
-			if(newAuthor.Names.size()!=0){
+			if(newAuthor.size()!=0){
 				this.Persons.add(newAuthor);
 			}
 			newAuthor=null;
@@ -55,46 +71,46 @@ public class DBLP_Parser extends Database{
 	public void characters(char ch[], int start,int length) throws SAXException {
 		if(bTitle){ 
 			if(P!=null){
-				P.Title = new String(ch,start,length);
+				P.setTitle(new String(ch,start,length));
 			}
 			bTitle = false;
 		}
 		else if(bAuthors){
 			if(P!=null){
-				P.Authors.add(new String(ch,start,length));
+				P.addAuthor(new String(ch,start,length));
 			}
 			else if(newAuthor!=null){
-				newAuthor.Names.add(new String(ch,start,length));
+				newAuthor.add(new String(ch,start,length));
 			}
 			bAuthors = false;
 		}
 		else if(bPages){
 			if(P!=null){
-				P.pages = new String(ch,start,length);
+				P.setPages(new String(ch,start,length));
 			}
 			bPages = false;
 		}
 		else if(bYear){
 			if(P!=null){
-				P.year=Integer.parseInt(new String(ch,start,length));
+				P.setYear(Integer.parseInt(new String(ch,start,length)));
 			}
 			bYear = false;
 		}
 		else if(bVolume){
 			if(P!=null){
-				P.volume=new String(ch,start,length);
+				P.setVolume(new String(ch,start,length));
 			}
 			bVolume = false;
 		}
 		else if(bJournal){
 			if(P!=null){
-				P.journal=new String(ch,start,length);
+				P.setJournal(new String(ch,start,length));
 			}
 			bJournal = false;
 		}
 		else if(bURL){
 			if(P!=null){
-				P.url=new String(ch,start,length);
+				P.setURL(new String(ch,start,length));
 			}
 			bURL = false;
 		}
