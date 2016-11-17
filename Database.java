@@ -2,41 +2,52 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.regex.Pattern;
+import java.util.regex.Matcher;
 
 import org.xml.sax.helpers.DefaultHandler;
+
 
 public class Database extends DefaultHandler{
 	protected ArrayList<Publication> DB = new ArrayList<Publication>();
 	protected ArrayList<Person> Persons = new ArrayList<Person>();
 	protected HashMap<String,ArrayList<Publication>> AtoPub = new HashMap<String,ArrayList<Publication>>();
+	protected HashMap<String,Publication> TtoPub = new HashMap<String,Publication>();
 	
 	public ArrayList<Publication> SearchAuthor(String name){
+		String[] terms = name.split(" ");
 		ArrayList<Publication> Result = new ArrayList<Publication>();
-		ArrayList<String> RelevantNames = new ArrayList<String>();
-		
+		HashMap<String,Integer> RelevantNames = new HashMap<String,Integer>();	
 		Iterator<String> names;
-		
 		Iterator<Person> iter = Persons.iterator();
 		while(iter.hasNext()){
 			Person temp=iter.next();
 			names = temp.getNames().iterator();
 			while(names.hasNext()){
 				String curName = names.next();
-				if(Pattern.compile(Pattern.quote(name), Pattern.CASE_INSENSITIVE).matcher(curName).find()){
-					RelevantNames.add(curName);
+				int i;
+				int matches=0;
+				for(i=0;i<terms.length;i++){
+					Matcher m = Pattern.compile(terms[i].toLowerCase()).matcher(curName.toLowerCase());
+					while(m.find())
+						matches++;
+				}
+				if(matches!=0){
+					RelevantNames.put(curName, matches);
 				}
 			}
 		}
-		
-		names = RelevantNames.iterator();
-		
+		names = RelevantNames.keySet().iterator();
 		while(names.hasNext()){
 			ArrayList<Publication> temp;
-			if((temp=AtoPub.get(names.next()))!=null)
+			String tempName = names.next();
+			if((temp=AtoPub.get(tempName))!=null){
+				Iterator<Publication> toAdd = temp.iterator();
+				while(toAdd.hasNext()){
+					toAdd.next().setRelevance(RelevantNames.get(tempName));
+				}
 				Result.addAll(temp);
-			
+			}
 		}
-		
 		return Result;
 	}
 }

@@ -33,7 +33,7 @@ public class Main {
 				 if(name.equalsIgnoreCase("quit"))
 					 break;
 				 ArrayList<Publication> Result = DB.SearchAuthor(name);
-				 Collections.sort(Result, new PublicationComparator());
+				 Collections.sort(Result, new PublicationRelevanceComparator());
 				 Iterator<Publication> iter = Result.iterator();
 				 while(iter.hasNext())
 					 System.out.println(iter.next());

@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class Publication implements Comparable<Publication>{
+public class Publication{
 	private String Title = "---";
 	private ArrayList<String> Authors = new ArrayList<String>();
 	private int year = 0;
@@ -8,6 +8,7 @@ public class Publication implements Comparable<Publication>{
 	private String volume = "---";
 	private String journal = "---";
 	private String url = "---";
+	private int relevance = 0;
 	
 	public void setTitle(String _title){
 		Title=_title;
@@ -30,6 +31,9 @@ public class Publication implements Comparable<Publication>{
 	public void setURL(String _url){
 		url=_url;
 	}
+	public void setRelevance(int _rel){
+		relevance = _rel;
+	}
 	public ArrayList<String> getAuthors()
 	{
 		return Authors;
@@ -39,20 +43,26 @@ public class Publication implements Comparable<Publication>{
 			return true;
 		return false;
 	}
+	public String getTitle(){
+		return this.Title;
+	}
 	public String toString(){
 		String str = "Title: "+Title+"\nAuthors: "+Authors.toString()+
-				"\nYear: "+year+"\nPages: "+pages+
+				/*"\nYear: "+year+"\nPages: "+pages+
 				"\nVolume: "+volume+
 				"\nJournal: "+journal+
-				"\nURL: "+url+"\n";
+				"\nURL: "+url+*/"\n";
 		return str;
 	}
-	public int compareTo(Publication arg0) {
+	public int compareYear(Publication arg0) {
 		if(this.year==0)
 			return Integer.MAX_VALUE;
 		else if(arg0.year==0)
 			return Integer.MIN_VALUE;
 		else
 			return (this.year-arg0.year);
+	}
+	public int compareRel(Publication arg0){
+		return (this.relevance-arg0.relevance);
 	}
 }
