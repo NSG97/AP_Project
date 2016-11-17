@@ -1,20 +1,19 @@
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
-import javax.swing.Timer;
 import javax.swing.border.LineBorder;
-import javax.swing.JTable;
-import javax.swing.SwingUtilities;
 
-public class MainFrame extends JFrame{
+
+public class Query2 extends JFrame {
 	private static int Def_width=1200;
 	private static int Def_height=1200;	
 	private JLabel Banner=new JLabel("<html><b>DBLP QUERY ENGINE</b></html>");
 	private JPanel Header_Panel;
 	private JPanel Querypanel;
-	
 	private JPanel Resultpanel;
-	public MainFrame(){		
+	private JButton Search=new JButton("Search");
+	private JButton Reset=new JButton("Reset");
+	public Query2(){		
 		setLayout(null);
 		setSize(Def_height,Def_width);
 		Header_Panel=new JPanel();
@@ -41,7 +40,7 @@ public class MainFrame extends JFrame{
 		Querypanel.setBounds(10, 150, 400, 600);
 		
 		
-		String[] queries_type=new String[]{"Queries","Query1","Query2","Query3"};
+		String[] queries_type=new String[]{"Query2","Query1","Query3"};
 		JComboBox<String>queries=new JComboBox<String>(queries_type);
 		Querypanel.add(queries);
 
@@ -49,7 +48,7 @@ public class MainFrame extends JFrame{
 			public void actionPerformed(ActionEvent event){
 				JComboBox<String> combo=(JComboBox<String>) event.getSource();
 				String item=(String)combo.getSelectedItem();
-				if(item.equals("Query1")){
+				if(item.equals("Query1")){	
 					new Query1();
 				}
 				else if(item.equals("Query2")){
@@ -61,12 +60,16 @@ public class MainFrame extends JFrame{
 			}
 		});
 		
-		String[] colheading={"SNO","Publications","Name"};
-		int rownum=20;
-		JTable table=new JTable();
-		table.setVisible(true);
-		//Resultpanel.add(new JSrollPane(table));
-		
+		JLabel publication=new JLabel("No. of Publications");
+		publication.setBounds(40,200,150,30);
+		JTextField publication_box=new JTextField();
+		publication_box.setBounds(200, 200, 80, 30);
+		add(publication);
+		add(publication_box);
+		Search.setBounds(40, 400, 80, 40);
+		Reset.setBounds(140, 400, 80, 40);
+		add(Search);
+		add(Reset);
 		add(Querypanel);		
 		Resultpanel.setBorder(BorderFactory.createLineBorder(Color.black));
 		Resultpanel.setSize(750,600);
@@ -74,12 +77,10 @@ public class MainFrame extends JFrame{
 		add(Resultpanel);		
 		setVisible(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	}	
+	public static void main(String[] args) {
+		Query2 obj=new Query2();
+
 	}
-	
-	public static void main(String[] args){
-		MainFrame obj=new MainFrame();
-		
-	}
-	
-	
+
 }
