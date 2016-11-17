@@ -18,9 +18,7 @@ public class Query2 extends JFrame {
 		setSize(Def_height,Def_width);
 		Header_Panel=new JPanel();
 		Querypanel=new JPanel();
-		Resultpanel=new JPanel();
-		
-		
+		Resultpanel=new JPanel();	
 		Header_Panel.setVisible(true);
 		Querypanel.setVisible(true);
 		Resultpanel.setVisible(true);
