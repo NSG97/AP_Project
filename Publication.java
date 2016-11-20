@@ -48,10 +48,10 @@ public class Publication{
 	}
 	public String toString(){
 		String str = "Title: "+Title+"\nAuthors: "+Authors.toString()+
-				/*"\nYear: "+year+"\nPages: "+pages+
+				"\nYear: "+year+"\nPages: "+pages+
 				"\nVolume: "+volume+
 				"\nJournal: "+journal+
-				"\nURL: "+url+*/"\n";
+				"\nURL: "+url+"\n";
 		return str;
 	}
 	public int compareYear(Publication arg0) {
