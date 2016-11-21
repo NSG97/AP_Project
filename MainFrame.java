@@ -6,13 +6,17 @@ public class MainFrame extends JFrame{
 	private static final long serialVersionUID = 1L;
 	private JPanel MainPanel,QueryOptionPanel,QueryPanel;
 	private JLabel Banner;
+	private Database DB;
 	ResultPanel RP = new ResultPanel();
-	Query1Panel Q1 = new Query1Panel();
-	Query2Panel Q2 = new Query2Panel();
-	MainFrame(){
+	Query1Panel Q1;// = new Query1Panel();
+	Query2Panel Q2;// = new Query2Panel();
+	MainFrame(Database SharedDB){
+		DB = SharedDB;
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setSize(1000,700);
 		setUpMainPanel();
+		Q1=new Query1Panel(RP,DB);
+		Q2=new Query2Panel(RP,DB);
 		this.add(MainPanel);
 		this.setVisible(true);
 	}
@@ -24,8 +28,8 @@ public class MainFrame extends JFrame{
 		Banner = new JLabel("<html><b>DBLP Query Engine</b><html>");
 		Banner.setHorizontalAlignment(JLabel.CENTER);
 		Banner.setFont(new Font("Serif",Font.PLAIN,50));
-		Banner.setPreferredSize(new Dimension(1000,50));
-		Banner.setMinimumSize(new Dimension(1000,50));
+		Banner.setPreferredSize(new Dimension(1000,100));
+		Banner.setMinimumSize(new Dimension(1000,100));
 		Banner.setBorder(BorderFactory.createLineBorder(Color.black));
 		
 		gbc.insets=new Insets(0,0,0,0);
@@ -118,8 +122,5 @@ public class MainFrame extends JFrame{
 		QueryPanel.add(Q2);
 		QueryPanel.revalidate();
 		QueryPanel.repaint();
-	}
-	public static void main(String[] args){
-		new MainFrame();
 	}
 }

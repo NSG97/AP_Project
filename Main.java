@@ -26,19 +26,8 @@ public class Main {
 			 long t2=System.currentTimeMillis();
 			 System.out.println("End: "+t2);
 			 System.out.println("Time Taken: "+(t2-t)+"ms");
-			 Scanner in = new Scanner(System.in);
-			 while(true){
-				 System.out.println("Enter author: ");
-				 String name = in.nextLine();
-				 if(name.equalsIgnoreCase("quit"))
-					 break;
-				 ArrayList<Publication> Result = DB.SearchAuthor(name);
-				 Collections.sort(Result, new PublicationRelevanceComparator());
-				 Iterator<Publication> iter = Result.iterator();
-				 while(iter.hasNext())
-					 System.out.println(iter.next());
-			 }
-			 in.close();
+			 
+			 new MainFrame(DB);
 		 }
 		 catch(Exception e){
 			 e.printStackTrace();

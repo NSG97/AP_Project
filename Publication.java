@@ -46,12 +46,8 @@ public class Publication{
 	public String getTitle(){
 		return this.Title;
 	}
-	public String toString(){
-		String str = "Title: "+Title+"\nAuthors: "+Authors.toString()+
-				"\nYear: "+year+"\nPages: "+pages+
-				"\nVolume: "+volume+
-				"\nJournal: "+journal+
-				"\nURL: "+url+"\n";
+	public String[] getStringArray(long i){
+		String[] str ={""+i+"",Authors.toString(),Title,pages,""+year+"",volume,journal,url};
 		return str;
 	}
 	public int compareYear(Publication arg0) {

@@ -8,8 +8,12 @@ public class Query2Panel extends JPanel{
 	JButton SearchButton,ResetButton;
 	JLabel sr_noOfPub;
 	JTextField noOfPub;
-	Query2Panel(){
+	Database DB;
+	ResultPanel RP;
+	Query2Panel(ResultPanel SharedRP,Database SharedDB){
 		super();
+		RP = SharedRP;
+		DB = SharedDB;
 		this.setPreferredSize(new Dimension(300,390));
 		this.setMinimumSize(new Dimension(300,390));
 		this.setBorder(BorderFactory.createLineBorder(Color.black));
@@ -27,7 +31,7 @@ public class Query2Panel extends JPanel{
 		gbc.fill=GridBagConstraints.HORIZONTAL;
 		this.add(sr_noOfPub,gbc);
 		
-		noOfPub = new JTextField("Enter");
+		noOfPub = new JTextField("----");
 		gbc.gridx=1;gbc.gridy=0;
 		gbc.gridheight=1;gbc.gridwidth=2;
 		gbc.weightx=1.0;gbc.weighty=0.2;

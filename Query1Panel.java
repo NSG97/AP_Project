@@ -1,4 +1,6 @@
 import java.awt.*;
+import java.awt.event.*;
+import java.util.*;
 import javax.swing.*;
 
 public class Query1Panel extends JPanel{
@@ -11,8 +13,12 @@ public class Query1Panel extends JPanel{
 	ButtonGroup bg;
 	GridBagConstraints gbc;
 	JButton SearchButton,ResetButton;
-	Query1Panel(){
+	Database DB;
+	ResultPanel RP;
+	Query1Panel(ResultPanel SharedRP,Database SharedDB){
 		super();
+		RP = SharedRP;
+		DB = SharedDB;
 		this.setPreferredSize(new Dimension(300,390));
 		this.setMinimumSize(new Dimension(300,390));
 		this.setBorder(BorderFactory.createLineBorder(Color.black));
@@ -45,7 +51,7 @@ public class Query1Panel extends JPanel{
 		gbc.fill=GridBagConstraints.HORIZONTAL;
 		this.add(name_title,gbc);
 		
-		sr_name_title = new JTextField("Enter searchable");
+		sr_name_title = new JTextField("----");
 		gbc.gridx=1;gbc.gridy=1;
 		gbc.gridheight=1;gbc.gridwidth=2;
 		gbc.weightx=1.0;gbc.weighty=0.2;
@@ -72,7 +78,7 @@ public class Query1Panel extends JPanel{
 		gbc.fill=GridBagConstraints.HORIZONTAL;
 		this.add(custom_range,gbc);
 
-		sr_year_since = new JTextField("Since");
+		sr_year_since = new JTextField("----");
 		gbc.gridx=1;gbc.gridy=2;
 		gbc.gridheight=1;gbc.gridwidth=2;
 		gbc.weightx=1.0;gbc.weighty=0.2;
@@ -80,7 +86,7 @@ public class Query1Panel extends JPanel{
 		gbc.fill=GridBagConstraints.HORIZONTAL;
 		this.add(sr_year_since,gbc);
 		
-		sr_custom_from = new JTextField("From");
+		sr_custom_from = new JTextField("----");
 		sr_custom_from.setPreferredSize(new Dimension(50,20));
 		sr_custom_from.setMinimumSize(new Dimension(50,20));
 		gbc.gridx=1;gbc.gridy=3;
@@ -90,7 +96,7 @@ public class Query1Panel extends JPanel{
 		gbc.fill=GridBagConstraints.NONE;
 		this.add(sr_custom_from,gbc);
 		
-		sr_custom_till = new JTextField("Until");
+		sr_custom_till = new JTextField("----");
 		sr_custom_till.setPreferredSize(new Dimension(50,20));
 		sr_custom_till.setMinimumSize(new Dimension(50,20));
 		gbc.gridx=2;gbc.gridy=3;
@@ -129,6 +135,29 @@ public class Query1Panel extends JPanel{
 		SearchButton = new JButton("Search");
 		SearchButton.setPreferredSize(new Dimension(100,20));
 		SearchButton.setMinimumSize(new Dimension(100,20));
+		SearchButton.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent arg0) {
+				if(searchby.getSelectedItem().equals("Search By")){
+					JOptionPane.showMessageDialog(null, "Select a Search Option.");
+				}
+				else{
+					if(sr_name_title.getText().equals("----")){
+						JOptionPane.showMessageDialog(null, "Enter a Search Tag.");
+					}
+					else{
+						long t=System.currentTimeMillis();
+						System.out.println("Searching: "+t);
+						ArrayList<Publication> Result = DB.SearchAuthor(sr_name_title.getText());
+						System.out.println("Searched: "+(System.currentTimeMillis()-t));
+						Collections.sort(Result,new PublicationRelevanceComparator());
+						Collections.reverse(Result);
+						RP.addResult(Result);
+					}
+				}
+			}
+		});
+		
+		
 		ResetButton = new JButton("Reset");
 		ResetButton.setPreferredSize(new Dimension(100,20));
 		ResetButton.setMinimumSize(new Dimension(100,20));
