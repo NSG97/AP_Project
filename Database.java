@@ -1,8 +1,5 @@
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.regex.Pattern;
-import java.util.regex.Matcher;
+import java.util.*;
+import java.util.regex.*;
 
 import org.xml.sax.helpers.DefaultHandler;
 
@@ -41,10 +38,6 @@ public class Database extends DefaultHandler{
 			ArrayList<Publication> temp;
 			String tempName = names.next();
 			if((temp=AtoPub.get(tempName))!=null){
-				Iterator<Publication> toAdd = temp.iterator();
-				while(toAdd.hasNext()){
-					toAdd.next().setRelevance(RelevantNames.get(tempName));
-				}
 				Result.addAll(temp);
 			}
 		}

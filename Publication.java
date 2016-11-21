@@ -1,4 +1,5 @@
-import java.util.ArrayList;
+import java.util.*;
+import java.util.regex.*;
 
 public class Publication{
 	private String Title = "---";
@@ -8,7 +9,7 @@ public class Publication{
 	private String volume = "---";
 	private String journal = "---";
 	private String url = "---";
-	private int relevance = 0;
+	private int ExRel = 0,ExSpRel=0,OtRel=0;
 	
 	public void setTitle(String _title){
 		Title=_title;
@@ -30,9 +31,6 @@ public class Publication{
 	}
 	public void setURL(String _url){
 		url=_url;
-	}
-	public void setRelevance(int _rel){
-		relevance = _rel;
 	}
 	public ArrayList<String> getAuthors()
 	{
@@ -58,7 +56,47 @@ public class Publication{
 		else
 			return (this.year-arg0.year);
 	}
+	public void setRelevanceByAuthor(String tag){
+		String terms[] = tag.split(" ");
+		int exact=0;int exactSplit=0;int other=0;
+		Iterator<String> AutIter = Authors.iterator();
+		while(AutIter.hasNext()){
+			String curName = AutIter.next();
+			if(curName.toLowerCase().equals(tag.toLowerCase())){
+				exact++;
+			}
+			else{
+				int i;
+				for(i=0;i<terms.length;i++){
+					Matcher m1 = Pattern.compile(terms[i].toLowerCase()).matcher(curName.toLowerCase());
+					Matcher m2 = Pattern.compile("\\b"+terms[i].toLowerCase()+"\\b").matcher(curName.toLowerCase());
+					while(m1.find())
+						exactSplit++;
+					while(m2.find())
+						other++;
+				}
+			}
+		}
+		ExRel=exact;ExSpRel=exactSplit;OtRel=other;
+	}
 	public int compareRel(Publication arg0){
-		return (this.relevance-arg0.relevance);
+		if(this.ExRel>arg0.ExRel)
+			return 1;
+		else if(this.ExRel<arg0.ExRel)
+			return -1;
+		else{
+			if(this.ExSpRel>arg0.ExSpRel)
+				return 1;
+			else if(this.ExSpRel<arg0.ExSpRel)
+				return -1;
+			else{
+				if(this.OtRel>arg0.OtRel)
+					return 1;
+				else if(this.OtRel<arg0.OtRel)
+					return -1;
+				else
+					return 0;
+			}
+		}
 	}
 }

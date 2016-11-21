@@ -149,6 +149,9 @@ public class Query1Panel extends JPanel{
 						System.out.println("Searching: "+t);
 						ArrayList<Publication> Result = DB.SearchAuthor(sr_name_title.getText());
 						System.out.println("Searched: "+(System.currentTimeMillis()-t));
+						Iterator<Publication> iter = Result.iterator();
+						while(iter.hasNext())
+							iter.next().setRelevanceByAuthor(sr_name_title.getText());
 						Collections.sort(Result,new PublicationRelevanceComparator());
 						Collections.reverse(Result);
 						RP.addResult(Result);
