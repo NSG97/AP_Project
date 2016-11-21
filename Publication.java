@@ -44,6 +44,9 @@ public class Publication{
 	public String getTitle(){
 		return this.Title;
 	}
+	public int getYear(){
+		return this.year;
+	}
 	public String[] getStringArray(long i){
 		String[] str ={""+i+"",Authors.toString(),Title,pages,""+year+"",volume,journal,url};
 		return str;

@@ -1,6 +1,7 @@
 import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
+
 import javax.swing.*;
 
 public class Query1Panel extends JPanel{
@@ -51,7 +52,7 @@ public class Query1Panel extends JPanel{
 		gbc.fill=GridBagConstraints.HORIZONTAL;
 		this.add(name_title,gbc);
 		
-		sr_name_title = new JTextField("----");
+		sr_name_title = new JTextField();
 		gbc.gridx=1;gbc.gridy=1;
 		gbc.gridheight=1;gbc.gridwidth=2;
 		gbc.weightx=1.0;gbc.weighty=0.2;
@@ -77,8 +78,8 @@ public class Query1Panel extends JPanel{
 		gbc.anchor=GridBagConstraints.CENTER;
 		gbc.fill=GridBagConstraints.HORIZONTAL;
 		this.add(custom_range,gbc);
-
-		sr_year_since = new JTextField("----");
+		
+		sr_year_since = new JTextField();
 		gbc.gridx=1;gbc.gridy=2;
 		gbc.gridheight=1;gbc.gridwidth=2;
 		gbc.weightx=1.0;gbc.weighty=0.2;
@@ -86,7 +87,7 @@ public class Query1Panel extends JPanel{
 		gbc.fill=GridBagConstraints.HORIZONTAL;
 		this.add(sr_year_since,gbc);
 		
-		sr_custom_from = new JTextField("----");
+		sr_custom_from = new JTextField();
 		sr_custom_from.setPreferredSize(new Dimension(50,20));
 		sr_custom_from.setMinimumSize(new Dimension(50,20));
 		gbc.gridx=1;gbc.gridy=3;
@@ -96,7 +97,7 @@ public class Query1Panel extends JPanel{
 		gbc.fill=GridBagConstraints.NONE;
 		this.add(sr_custom_from,gbc);
 		
-		sr_custom_till = new JTextField("----");
+		sr_custom_till = new JFormattedTextField();
 		sr_custom_till.setPreferredSize(new Dimension(50,20));
 		sr_custom_till.setMinimumSize(new Dimension(50,20));
 		gbc.gridx=2;gbc.gridy=3;
@@ -135,31 +136,7 @@ public class Query1Panel extends JPanel{
 		SearchButton = new JButton("Search");
 		SearchButton.setPreferredSize(new Dimension(100,20));
 		SearchButton.setMinimumSize(new Dimension(100,20));
-		SearchButton.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent arg0) {
-				if(searchby.getSelectedItem().equals("Search By")){
-					JOptionPane.showMessageDialog(null, "Select a Search Option.");
-				}
-				else{
-					if(sr_name_title.getText().equals("----")){
-						JOptionPane.showMessageDialog(null, "Enter a Search Tag.");
-					}
-					else{
-						long t=System.currentTimeMillis();
-						System.out.println("Searching: "+t);
-						ArrayList<Publication> Result = DB.SearchAuthor(sr_name_title.getText());
-						System.out.println("Searched: "+(System.currentTimeMillis()-t));
-						Iterator<Publication> iter = Result.iterator();
-						while(iter.hasNext())
-							iter.next().setRelevanceByAuthor(sr_name_title.getText());
-						Collections.sort(Result,new PublicationRelevanceComparator());
-						Collections.reverse(Result);
-						RP.addResult(Result);
-					}
-				}
-			}
-		});
-		
+		SearchButton.addActionListener(new SearchButtonActionListener());
 		
 		ResetButton = new JButton("Reset");
 		ResetButton.setPreferredSize(new Dimension(100,20));
@@ -180,5 +157,57 @@ public class Query1Panel extends JPanel{
 		gbc.anchor=GridBagConstraints.CENTER;
 		gbc.fill=GridBagConstraints.NONE;
 		this.add(ResetButton,gbc);
+	}
+	
+	private class SearchButtonActionListener implements ActionListener{
+		public void actionPerformed(ActionEvent arg0) {
+			if(searchby.getSelectedItem().equals("Search By") || sr_name_title.getText().equals("")){
+				JOptionPane.showMessageDialog(null, "Enter Search Method and/or Search Tag.");
+			}
+			else{
+				int yearFrom=0,yearTill=Integer.MAX_VALUE;
+				try{
+					if(sr_year_since.getText().equals("")){
+						if(sr_custom_from.getText().equals("") || sr_custom_till.getText().equals(""))
+							throw new Exception();
+						yearFrom = Integer.parseInt(sr_custom_from.getText());
+						yearTill = Integer.parseInt(sr_custom_till.getText());
+					}
+					else{
+						yearFrom = Integer.parseInt(sr_year_since.getText());
+					}
+					if(!yearRadio.isSelected() && !relRadio.isSelected())
+						JOptionPane.showMessageDialog(null, "Select a sorting method");
+					else{
+						ArrayList<Publication> Result;
+						long t=System.currentTimeMillis();
+						System.out.println("Searching: "+t);
+						//if(searchby.getSelectedItem().equals("Author")){
+							Result = DB.SearchAuthor(sr_name_title.getText());
+						//}
+						//else{
+							
+						//}
+						System.out.println("Searched: "+(System.currentTimeMillis()-t));
+						Result = RP.SortByYear(Result,yearFrom,yearTill);
+						if(relRadio.isSelected()){
+							Iterator<Publication> iter = Result.iterator();
+							while(iter.hasNext())
+								iter.next().setRelevanceByAuthor(sr_name_title.getText());
+							Collections.sort(Result,new PublicationRelevanceComparator());
+							Collections.reverse(Result);
+						}
+						else{
+							Collections.sort(Result,new PublicationYearComparator());
+							Collections.reverse(Result);
+						}
+						RP.addResult(Result);
+					}
+				}
+				catch(Exception e){
+					JOptionPane.showMessageDialog(null, "Invalid Input for year.");
+				}
+			}
+		}
 	}
 }

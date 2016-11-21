@@ -72,6 +72,7 @@ public class ResultPanel extends JPanel{
 	public void addResult(ArrayList<Publication> Result){
 		PubResult = Result;
 		PubIter = PubResult.iterator();
+		SNo=0;
 		whichResult = 1;
 		NoOfResults.setText(""+Result.size()+" Results");
 		showNext();
@@ -100,5 +101,15 @@ public class ResultPanel extends JPanel{
 			tPanel.repaint();
 			tPanel.revalidate();
 		}
+	}
+	public ArrayList<Publication> SortByYear(ArrayList<Publication> Result,int from,int till){
+		ArrayList<Publication> newResult = new ArrayList<Publication>();
+		Iterator<Publication> iter = Result.iterator();
+		while(iter.hasNext()){
+			Publication temp = iter.next();
+			if(temp.getYear()>=from && temp.getYear()<=till)
+				newResult.add(temp);
+		}
+		return newResult;
 	}
 }
