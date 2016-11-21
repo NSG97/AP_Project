@@ -21,7 +21,7 @@ public class MainFrame extends JFrame{
 		MainPanel.setLayout(new GridBagLayout());
 		GridBagConstraints gbc = new GridBagConstraints();
 		
-		Banner = new JLabel("DBLP Query Engine");
+		Banner = new JLabel("<html><b>DBLP Query Engine</b><html>");
 		Banner.setHorizontalAlignment(JLabel.CENTER);
 		Banner.setFont(new Font("Serif",Font.PLAIN,50));
 		Banner.setPreferredSize(new Dimension(1000,50));
