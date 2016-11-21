@@ -4,8 +4,11 @@ import javax.swing.*;
 
 public class MainFrame extends JFrame{
 	private static final long serialVersionUID = 1L;
-	private JPanel MainPanel,ResultPanel,QueryOptionPanel,QueryPanel;
+	private JPanel MainPanel,QueryOptionPanel,QueryPanel;
 	private JLabel Banner;
+	ResultPanel RP = new ResultPanel();
+	Query1Panel Q1 = new Query1Panel();
+	Query2Panel Q2 = new Query2Panel();
 	MainFrame(){
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setSize(1000,700);
@@ -18,7 +21,7 @@ public class MainFrame extends JFrame{
 		MainPanel.setLayout(new GridBagLayout());
 		GridBagConstraints gbc = new GridBagConstraints();
 		
-		Banner = new JLabel("<html><b>DBLP Query Engine</b><html>");
+		Banner = new JLabel("DBLP Query Engine");
 		Banner.setHorizontalAlignment(JLabel.CENTER);
 		Banner.setFont(new Font("Serif",Font.PLAIN,50));
 		Banner.setPreferredSize(new Dimension(1000,50));
@@ -51,15 +54,13 @@ public class MainFrame extends JFrame{
 		gbc.fill=GridBagConstraints.HORIZONTAL;
 		MainPanel.add(QueryPanel,gbc);
 		
-		
-		setUpResultPanel();
 		gbc.insets=new Insets(0,0,0,0);
 		gbc.gridx=1;gbc.gridy=1;
 		gbc.gridheight=2;gbc.gridwidth=1;
 		gbc.weightx=1.0;gbc.weighty=1.0;
-		gbc.anchor=GridBagConstraints.NORTH;
-		gbc.fill=GridBagConstraints.HORIZONTAL;
-		MainPanel.add(ResultPanel,gbc);
+		gbc.anchor=GridBagConstraints.CENTER;
+		gbc.fill=GridBagConstraints.BOTH;
+		MainPanel.add(RP,gbc);
 	}
 	
 	private void setUpQueryOptionPanel(){
@@ -107,26 +108,17 @@ public class MainFrame extends JFrame{
 	
 	private void setToQuery1(){
 		QueryPanel.removeAll();
-		QueryPanel.add(new Query1Panel());
+		QueryPanel.add(Q1);
 		QueryPanel.revalidate();
 		QueryPanel.repaint();
 	}
 	
 	private void setToQuery2(){
 		QueryPanel.removeAll();
-		QueryPanel.add(new Query2Panel());
+		QueryPanel.add(Q2);
 		QueryPanel.revalidate();
 		QueryPanel.repaint();
 	}
-	
-	
-	private void setUpResultPanel(){
-		ResultPanel = new JPanel();
-		ResultPanel.setPreferredSize(new Dimension(600,600));
-		ResultPanel.setMinimumSize(new Dimension(600,600));
-		ResultPanel.setBorder(BorderFactory.createLineBorder(Color.black));
-	}
-	
 	public static void main(String[] args){
 		new MainFrame();
 	}

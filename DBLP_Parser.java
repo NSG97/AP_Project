@@ -31,7 +31,7 @@ public class DBLP_Parser extends Database{
 		else if(qName.equalsIgnoreCase("volume")){
 			bVolume = true;
 		}
-		else if(qName.equalsIgnoreCase("journal")){
+		else if(qName.equalsIgnoreCase("journal") || qName.equalsIgnoreCase("booktitle")){
 			bJournal = true;
 		}
 		else if(qName.equalsIgnoreCase("url")){
