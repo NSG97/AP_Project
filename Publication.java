@@ -9,7 +9,7 @@ public class Publication{
 	private String volume = "---";
 	private String journal = "---";
 	private String url = "---";
-	private int ExRel = 0,ExSpRel=0,OtRel=0;
+	private int ExRel = 0,ExSpRel=0;
 	
 	public void setTitle(String _title){
 		Title=_title;
@@ -61,26 +61,39 @@ public class Publication{
 	}
 	public void setRelevanceByAuthor(String tag){
 		String terms[] = tag.split(" ");
-		int exact=0;int exactSplit=0;int other=0;
+		int exact=0;int exactSplit=0;
 		Iterator<String> AutIter = Authors.iterator();
 		while(AutIter.hasNext()){
 			String curName = AutIter.next();
-			if(curName.toLowerCase().equals(tag.toLowerCase())){
+			if(curName.toLowerCase().contains(tag.toLowerCase())){
 				exact++;
 			}
 			else{
 				int i;
 				for(i=0;i<terms.length;i++){
-					Matcher m1 = Pattern.compile(terms[i].toLowerCase()).matcher(curName.toLowerCase());
-					Matcher m2 = Pattern.compile("\\b"+terms[i].toLowerCase()+"\\b").matcher(curName.toLowerCase());
-					while(m1.find())
+					Matcher m = Pattern.compile("\\b"+terms[i].toLowerCase()+"\\b").matcher(curName.toLowerCase());
+					while(m.find())
 						exactSplit++;
-					while(m2.find())
-						other++;
 				}
 			}
 		}
-		ExRel=exact;ExSpRel=exactSplit;OtRel=other;
+		ExRel=exact;ExSpRel=exactSplit;
+	}
+	public void setRelevanceByTitle(String tag){
+		String terms[] = tag.split(" ");
+		int exact=0;int exactSplit=0;
+		if(Title.toLowerCase().contains(tag.toLowerCase())){
+				exact++;
+		}
+		else{
+			int i;
+			for(i=0;i<terms.length;i++){
+				Matcher m = Pattern.compile("\\b"+terms[i].toLowerCase()+"\\b").matcher(Title.toLowerCase());
+				while(m.find())
+					exactSplit++;
+			}
+		}
+		ExRel=exact;ExSpRel=exactSplit;
 	}
 	public int compareRel(Publication arg0){
 		if(this.ExRel>arg0.ExRel)
@@ -92,14 +105,8 @@ public class Publication{
 				return 1;
 			else if(this.ExSpRel<arg0.ExSpRel)
 				return -1;
-			else{
-				if(this.OtRel>arg0.OtRel)
-					return 1;
-				else if(this.OtRel<arg0.OtRel)
-					return -1;
-				else
-					return 0;
-			}
+			else
+				return 0;
 		}
 	}
 }

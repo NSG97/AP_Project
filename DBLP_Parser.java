@@ -56,7 +56,6 @@ public class DBLP_Parser extends Database{
 					AtoPub.put(temp,Ptemp);
 				}
 			}
-			TtoPub.put(P.getTitle(),P);
 			P=null;
 		}
 		else if(qName.equalsIgnoreCase("www")){

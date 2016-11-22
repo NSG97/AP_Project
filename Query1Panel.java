@@ -168,8 +168,7 @@ public class Query1Panel extends JPanel{
 				int yearFrom=0,yearTill=Integer.MAX_VALUE;
 				try{
 					if(sr_year_since.getText().equals("")){
-						if(sr_custom_from.getText().equals("") || sr_custom_till.getText().equals(""))
-							throw new Exception();
+						if(sr_custom_from.getText().equals("") || sr_custom_till.getText().equals("")) throw new Exception();
 						yearFrom = Integer.parseInt(sr_custom_from.getText());
 						yearTill = Integer.parseInt(sr_custom_till.getText());
 					}
@@ -182,18 +181,20 @@ public class Query1Panel extends JPanel{
 						ArrayList<Publication> Result;
 						long t=System.currentTimeMillis();
 						System.out.println("Searching: "+t);
-						//if(searchby.getSelectedItem().equals("Author")){
+						if(searchby.getSelectedItem().equals("Author"))
 							Result = DB.SearchAuthor(sr_name_title.getText());
-						//}
-						//else{
-							
-						//}
+						else
+							Result = DB.SearchTitle(sr_name_title.getText());
 						System.out.println("Searched: "+(System.currentTimeMillis()-t));
 						Result = RP.SortByYear(Result,yearFrom,yearTill);
 						if(relRadio.isSelected()){
 							Iterator<Publication> iter = Result.iterator();
-							while(iter.hasNext())
-								iter.next().setRelevanceByAuthor(sr_name_title.getText());
+							if(searchby.getSelectedItem().equals("Author"))
+								while(iter.hasNext())
+									iter.next().setRelevanceByAuthor(sr_name_title.getText());
+							else
+								while(iter.hasNext())
+									iter.next().setRelevanceByTitle(sr_name_title.getText());
 							Collections.sort(Result,new PublicationRelevanceComparator());
 							Collections.reverse(Result);
 						}
