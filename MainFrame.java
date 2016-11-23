@@ -8,8 +8,8 @@ public class MainFrame extends JFrame{
 	private JLabel Banner;
 	private Database DB;
 	ResultPanel RP = new ResultPanel();
-	Query1Panel Q1;// = new Query1Panel();
-	Query2Panel Q2;// = new Query2Panel();
+	Query1Panel Q1;
+	Query2Panel Q2;
 	MainFrame(Database SharedDB){
 		DB = SharedDB;
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -111,6 +111,7 @@ public class MainFrame extends JFrame{
 	}
 	
 	private void setToQuery1(){
+		Q1.Q1Reset();
 		QueryPanel.removeAll();
 		QueryPanel.add(Q1);
 		QueryPanel.revalidate();

@@ -32,7 +32,7 @@ public class ResultPanel extends JPanel{
 		gbc.gridheight=1;gbc.gridwidth=1;
 		gbc.weightx=1.0;gbc.weighty=1.0;
 		gbc.anchor=GridBagConstraints.CENTER;
-		gbc.fill=GridBagConstraints.BOTH;
+		gbc.fill=GridBagConstraints.NONE;
 		this.add(NoOfResults,gbc);
 		
 		setUpTableData();
@@ -68,6 +68,14 @@ public class ResultPanel extends JPanel{
 		table.setMinimumSize(new Dimension(800,400));
 		JScrollPane sp = new JScrollPane(table);
 		tPanel.add(sp);
+	}
+	public void Reset(){
+		NoOfResults.setText("No Of Results.");
+		tPanel.removeAll();
+		data=new Object[20][8];
+		setUpTableData();
+		tPanel.revalidate();
+		tPanel.repaint();
 	}
 	
 	public void addResult(ArrayList<Publication> Result){
