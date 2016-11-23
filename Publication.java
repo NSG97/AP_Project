@@ -65,13 +65,14 @@ public class Publication{
 		Iterator<String> AutIter = Authors.iterator();
 		while(AutIter.hasNext()){
 			String curName = AutIter.next();
-			if(curName.toLowerCase().contains(tag.toLowerCase())){
+			Matcher m = Pattern.compile("\\b"+tag.toLowerCase()+"\\b").matcher(curName.toLowerCase());
+			if(m.find()){
 				exact++;
 			}
 			else{
 				int i;
 				for(i=0;i<terms.length;i++){
-					Matcher m = Pattern.compile("\\b"+terms[i].toLowerCase()+"\\b").matcher(curName.toLowerCase());
+					m = Pattern.compile("\\b"+terms[i].toLowerCase()+"\\b").matcher(curName.toLowerCase());
 					while(m.find())
 						exactSplit++;
 				}

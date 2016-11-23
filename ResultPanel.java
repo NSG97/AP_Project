@@ -1,8 +1,6 @@
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 import java.util.*;
-
 import javax.swing.*;
 
 public class ResultPanel extends JPanel{
@@ -37,12 +35,7 @@ public class ResultPanel extends JPanel{
 		gbc.fill=GridBagConstraints.BOTH;
 		this.add(NoOfResults,gbc);
 		
-		
-		table = new JTable(data,column_names);
-		table.setPreferredSize(new Dimension(800,400));
-		table.setMinimumSize(new Dimension(800,400));
-		JScrollPane sp = new JScrollPane(table);
-		tPanel.add(sp);
+		setUpTableData();
 		
 		gbc.insets=new Insets(0,0,0,0);
 		gbc.gridx=0;gbc.gridy=1;
@@ -69,6 +62,14 @@ public class ResultPanel extends JPanel{
 		this.add(Next,gbc);
 	}
 	
+	private void setUpTableData(){
+		table = new JTable(data,column_names);
+		table.setPreferredSize(new Dimension(800,400));
+		table.setMinimumSize(new Dimension(800,400));
+		JScrollPane sp = new JScrollPane(table);
+		tPanel.add(sp);
+	}
+	
 	public void addResult(ArrayList<Publication> Result){
 		PubResult = Result;
 		PubIter = PubResult.iterator();
@@ -92,12 +93,8 @@ public class ResultPanel extends JPanel{
 				data[i]=PubIter.next().getStringArray((++SNo));
 				i++;
 			}
-			table = new JTable(data,column_names);
-			table.setPreferredSize(new Dimension(800,400));
-			table.setMinimumSize(new Dimension(800,400));
-			JScrollPane sp = new JScrollPane(table);
 			tPanel.removeAll();
-			tPanel.add(sp);
+			setUpTableData();
 			tPanel.repaint();
 			tPanel.revalidate();
 		}
