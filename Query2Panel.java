@@ -54,7 +54,6 @@ public class Query2Panel extends JPanel{
 				Q2Reset();
 			}
 		});
-		
 		gbc.insets=new Insets(0,0,0,0);
 		gbc.gridx=0;gbc.gridy=1;
 		gbc.gridheight=1;gbc.gridwidth=1;
