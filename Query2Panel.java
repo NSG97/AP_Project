@@ -1,4 +1,6 @@
 import java.awt.*;
+import java.awt.event.ActionListener;
+import java.awt.event.*;
 
 import javax.swing.*;
 
@@ -47,6 +49,11 @@ public class Query2Panel extends JPanel{
 		ResetButton = new JButton("Reset");
 		ResetButton.setPreferredSize(new Dimension(100,20));
 		ResetButton.setMinimumSize(new Dimension(100,20));
+		ResetButton.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				Q2Reset();
+			}
+		});
 		
 		gbc.insets=new Insets(0,0,0,0);
 		gbc.gridx=0;gbc.gridy=1;
@@ -63,5 +70,9 @@ public class Query2Panel extends JPanel{
 		gbc.anchor=GridBagConstraints.NORTH;
 		gbc.fill=GridBagConstraints.NONE;
 		this.add(ResetButton,gbc);
+	}
+	public void Q2Reset(){
+		RP.Reset();
+		noOfPub.setText("----");
 	}
 }
