@@ -1,3 +1,8 @@
+/*
+ * class responsible for storing person records
+ */
+
+
 import java.util.ArrayList;
 
 public class Person {

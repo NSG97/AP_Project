@@ -1,3 +1,8 @@
+/*
+ * This class is responsible for maintaining databases in form of array lists and hash maps
+ */
+
+
 import java.util.*;
 import java.util.regex.*;
 
@@ -38,7 +43,7 @@ public class Database extends DefaultHandler{
 			ArrayList<Publication> temp;
 			String tempName = names.next();
 			if((temp=AtoPub.get(tempName))!=null){
-				Iterator<Publication> tempIter = temp.iterator();
+				Iterator<Publication> tempIter = temp.iterator(); 
 				while(tempIter.hasNext()){
 					Publication tempPub = tempIter.next();
 					if(!Result.contains(tempPub))

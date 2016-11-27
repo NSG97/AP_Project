@@ -1,3 +1,7 @@
+/*
+ * class for making query1 panel
+ */
+
 import java.awt.*;
 import java.awt.event.*;
 import java.util.*;

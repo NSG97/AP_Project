@@ -1,3 +1,7 @@
+/*
+ * panel which displays result in result panel
+ */
+
 import java.awt.*;
 import java.awt.event.*;
 import java.util.*;

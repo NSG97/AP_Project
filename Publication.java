@@ -1,3 +1,8 @@
+/*
+ * class responsible for storing publications records
+ */
+
+
 import java.util.*;
 import java.util.regex.*;
 

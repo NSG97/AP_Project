@@ -1,3 +1,7 @@
+/*
+ * class responsible for creating query2 panel
+ */
+
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.*;
