@@ -33,7 +33,7 @@ public class Query2Panel extends JPanel{
 		gbc.fill=GridBagConstraints.HORIZONTAL;
 		this.add(sr_noOfPub,gbc);
 		
-		noOfPub = new JTextField("----");
+		noOfPub = new JTextField("");
 		gbc.gridx=1;gbc.gridy=0;
 		gbc.gridheight=1;gbc.gridwidth=2;
 		gbc.weightx=1.0;gbc.weighty=0.2;
@@ -72,6 +72,6 @@ public class Query2Panel extends JPanel{
 	}
 	public void Q2Reset(){
 		RP.Reset();
-		noOfPub.setText("----");
+		noOfPub.setText("");
 	}
 }
