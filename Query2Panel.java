@@ -82,7 +82,7 @@ public class Query2Panel extends JPanel{
 	private class SearchButtonActionListener implements ActionListener{
 		public void actionPerformed(ActionEvent arg0) {
 			if(noOfPub.getText().equals("")){
-				JOptionPane.showMessageDialog(null, "Enter Search Method and/or Search Tag.");
+				JOptionPane.showMessageDialog(null, "Enter No. of Publications.");
 			}
 			else{
 				try{

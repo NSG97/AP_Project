@@ -124,11 +124,11 @@ public class ResultPanel extends JPanel{
 		else if(whichResult==2){
 			int i=0;
 			if(SNo==PerResult.size()){
-				SNo=0;
+				SNo=1;
 			}
 			while(i<20 && SNo<=PerResult.size()){
-				data[i]=PerResult.get(SNo++).getStringArray(SNo);
-				i++;
+				data[i]=PerResult.get(SNo-1).getStringArray(SNo);
+				i++;SNo++;
 			}
 			tPanel.removeAll();
 			setUpTableData();

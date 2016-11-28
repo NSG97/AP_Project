@@ -2,11 +2,16 @@
  * Class which initiates project
  */
 
-
-
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
+
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
+
+import org.xml.sax.InputSource;
 
 public class Main {
 
@@ -14,6 +19,12 @@ public class Main {
 		 try{
 			 
 			 File inputFile = new File("dblp.xml");
+			 InputStream inputStream = new FileInputStream(inputFile);
+			 Reader reader = new InputStreamReader(inputStream,"ISO-8859-1");
+			 
+			 InputSource is = new InputSource(reader);
+			 is.setEncoding("ISO-8859-1");
+			 
 			 SAXParserFactory factory = SAXParserFactory.newInstance();
 			 SAXParser saxParser = factory.newSAXParser();
 			 Database DB = new DBLP_Parser();
@@ -21,7 +32,7 @@ public class Main {
 			 long t=System.currentTimeMillis();
 			 System.out.println("Start: "+t);
 			 
-			 saxParser.parse(inputFile,DB);
+			 saxParser.parse(is,DB);
 			 
 			 long t2=System.currentTimeMillis();
 			 System.out.println("End: "+t2);

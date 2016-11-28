@@ -1,5 +1,5 @@
 /*
- * This class is responsible for maintaining databases in form of array lists and hash Maps
+ * This class is responsible for maintaining databases in form of array lists and hash maps
  */
 
 
@@ -90,10 +90,10 @@ public class Database extends DefaultHandler{
 		}
 		return Result;
 	}
-	public int[] Predict(String name,int yearUntil){
-		int[] pred_act = new int[2];
+	public float[] Predict(String name,int yearToPredict){
+		float[] pred_act = new float[2];int actual=0;
 		Iterator<Person> PerIter = Persons.iterator();
-		Person RelPerson;
+		Person RelPerson=null;
 		while(PerIter.hasNext()){
 			boolean f=false;
 			Person temp = PerIter.next();
@@ -109,7 +109,55 @@ public class Database extends DefaultHandler{
 				break;
 			}
 		}
-		
+		if(RelPerson==null){
+			pred_act[0]=0;pred_act[1]=0;
+			return pred_act;
+		}
+		System.out.println(RelPerson);
+		HashMap<Integer,Integer> YearToNo = new HashMap<Integer,Integer>();
+		Iterator<String> pseudos = RelPerson.getNames().iterator();
+		while(pseudos.hasNext()){
+			String curName = pseudos.next();
+			Iterator<Publication> curPubs = AtoPub.get(curName).iterator();
+			while(curPubs.hasNext()){
+				Publication temp = curPubs.next();
+				if(temp.getYear()<yearToPredict){
+					if(!YearToNo.containsKey(temp.getYear())){
+						YearToNo.put(temp.getYear(),1);
+					}
+					else{
+						YearToNo.put(temp.getYear(),YearToNo.get(temp.getYear())+1);
+					}
+				}
+				else if(temp.getYear()==yearToPredict)
+					actual++;
+			}
+		}
+		System.out.println(YearToNo);
+		pred_act[0]=predictNext(YearToNo,yearToPredict);
+		pred_act[1]=actual;
 		return pred_act;
+	}
+	private float predictNext(HashMap<Integer,Integer> xToy, int x){
+		System.out.println("predicting");
+		Iterator<Integer> Xs = xToy.keySet().iterator();
+		float xMean=0,yMean=0;
+		while(Xs.hasNext()){
+			Integer xi = Xs.next();
+			xMean = xMean+xi;yMean = yMean+xToy.get(xi);
+		}
+		xMean = xMean/xToy.size();
+		yMean = yMean/xToy.size();
+		float xSig=0,ySig=0,x2Sig=0;
+		Xs = xToy.keySet().iterator();
+		while(Xs.hasNext()){
+			Integer xi = Xs.next();
+			xSig = xSig + (xi-xMean);
+			ySig = ySig + (xToy.get(xi)-yMean);
+			x2Sig = x2Sig + (xi-xMean)*(xi-xMean);
+		}
+		float b = (xSig*ySig)/x2Sig;
+		float a = yMean-b*xMean;
+		return (a+b*x);
 	}
 }
