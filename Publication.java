@@ -9,7 +9,7 @@ import java.util.regex.*;
 public class Publication{
 	private String Title = "---";
 	private ArrayList<String> Authors = new ArrayList<String>();
-	private int year = 0;
+	private Integer year;
 	private String pages = "---";
 	private String volume = "---";
 	private String journal = "---";
@@ -23,7 +23,7 @@ public class Publication{
 		Authors.add(_author);
 	}
 	public void setYear (int _year){
-		year=_year;
+		year=new Integer(_year);
 	}
 	public void setPages(String _pages){
 		pages=_pages;
@@ -49,7 +49,7 @@ public class Publication{
 	public String getTitle(){
 		return this.Title;
 	}
-	public int getYear(){
+	public Integer getYear(){
 		return this.year;
 	}
 	public String[] getStringArray(long i){
@@ -57,9 +57,9 @@ public class Publication{
 		return str;
 	}
 	public int compareYear(Publication arg0) {
-		if(this.year==0)
+		if(this.year==null)
 			return Integer.MAX_VALUE;
-		else if(arg0.year==0)
+		else if(arg0.year==null)
 			return Integer.MIN_VALUE;
 		else
 			return (this.year-arg0.year);

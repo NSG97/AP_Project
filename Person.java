@@ -19,4 +19,8 @@ public class Person {
 	public String toString(){
 		return "Authors: "+Names;
 	}
+	public String[] getStringArray(long i){
+		String[] str ={""+i+"",Names.toString(),"","","","","",""};
+		return str;
+	}
 }

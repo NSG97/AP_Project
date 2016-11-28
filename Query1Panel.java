@@ -193,10 +193,11 @@ public class Query1Panel extends JPanel{
 							Collections.sort(Result,new PublicationYearComparator());
 							Collections.reverse(Result);
 						}
-						RP.addResult(Result);
+						RP.addResultPublication(Result);
 					}
 				}
 				catch(Exception e){
+					e.printStackTrace();
 					JOptionPane.showMessageDialog(null, "Invalid Input for year.");
 				}
 			}

@@ -5,6 +5,7 @@
 import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
+
 import javax.swing.*;
 
 public class ResultPanel extends JPanel{
@@ -16,11 +17,8 @@ public class ResultPanel extends JPanel{
 	JButton Next = new JButton("Next");
 	Object[][] data = new Object[20][8];
 	ArrayList<Publication> PubResult;
-	Iterator<Publication> PubIter;
 	ArrayList<Person> PerResult;
-	Iterator<Person> PerIter;
-	int whichResult = 0;
-	long SNo=0;
+	int whichResult = 0,SNo=0;
 	ResultPanel(){
 		super();
 		this.setPreferredSize(new Dimension(800,600));
@@ -82,27 +80,54 @@ public class ResultPanel extends JPanel{
 		tPanel.repaint();
 	}
 	
-	public void addResult(ArrayList<Publication> Result){
-		PubResult = Result;
-		PubIter = PubResult.iterator();
-		SNo=0;
-		whichResult = 1;
-		NoOfResults.setText(""+Result.size()+" Results");
-		showNext();
+	public void addResultPublication(ArrayList<Publication> Result){
+		if(Result.size()==0){
+			JOptionPane.showMessageDialog(null, "No Result.");
+		}
+		else{
+			PubResult = Result;
+			SNo=1;
+			whichResult = 1;
+			NoOfResults.setText(""+Result.size()+" Results");
+			showNext();
+		}
+	}
+	
+	public void addResultPerson(ArrayList<Person> Result){
+		if(Result.size()==0){
+			JOptionPane.showMessageDialog(null, "No Result.");
+		}
+		else{
+			PerResult = Result;
+			SNo=1;
+			whichResult = 2;
+			NoOfResults.setText(""+Result.size()+" Results");
+			showNext();
+		}
 	}
 	
 	private void showNext(){
-		if(whichResult==0){
-			
-		}
-		else if(whichResult==1){
+		if(whichResult==1){
 			int i=0;
-			if(!PubIter.hasNext()){
-				PubIter=PubResult.iterator();
+			if(SNo>PubResult.size()){
+				SNo=1;
+			}
+			while(i<20 && SNo<=PubResult.size()){
+				data[i]=PubResult.get(SNo-1).getStringArray(SNo);
+				i++;SNo++;
+			}
+			tPanel.removeAll();
+			setUpTableData();
+			tPanel.repaint();
+			tPanel.revalidate();
+		}
+		else if(whichResult==2){
+			int i=0;
+			if(SNo==PerResult.size()){
 				SNo=0;
 			}
-			while(i<20 && PubIter.hasNext()){
-				data[i]=PubIter.next().getStringArray((++SNo));
+			while(i<20 && SNo<=PerResult.size()){
+				data[i]=PerResult.get(SNo++).getStringArray(SNo);
 				i++;
 			}
 			tPanel.removeAll();
@@ -116,7 +141,10 @@ public class ResultPanel extends JPanel{
 		Iterator<Publication> iter = Result.iterator();
 		while(iter.hasNext()){
 			Publication temp = iter.next();
-			if(temp.getYear()>=from && temp.getYear()<=till)
+			if(temp.getYear()==null){
+				newResult.add(temp);
+			}
+			else if(temp.getYear()>=from && temp.getYear()<=till)
 				newResult.add(temp);
 		}
 		return newResult;

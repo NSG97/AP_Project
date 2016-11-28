@@ -1,5 +1,5 @@
 /*
- * This class is responsible for maintaining databases in form of array lists and hash maps
+ * This class is responsible for maintaining databases in form of array lists and hash Maps
  */
 
 
@@ -28,11 +28,11 @@ public class Database extends DefaultHandler{
 				int i;
 				int matches=0;
 				for(i=0;i<terms.length;i++){
-					Matcher m = Pattern.compile("\\b"+terms[i].toLowerCase()+"\\b").matcher(curName.toLowerCase());
-					while(m.find())
+					Matcher m = Pattern.compile(terms[i].toLowerCase()).matcher(curName.toLowerCase());
+					if(m.find())
 						matches++;
 				}
-				if(matches!=0){
+				if(matches==terms.length){
 					RelevantNames.addAll(temp.getNames());
 					break;
 				}
@@ -63,13 +63,53 @@ public class Database extends DefaultHandler{
 			int i;
 			int matches=0;
 			for(i=0;i<terms.length;i++){
-				Matcher m = Pattern.compile("\\b"+terms[i].toLowerCase()+"\\b").matcher(curTitle.toLowerCase());
-				while(m.find())
+				Matcher m = Pattern.compile(terms[i].toLowerCase()).matcher(curTitle.toLowerCase());
+				if(m.find())
 					matches++;
 			}
-			if(matches>0)
+			if(matches==terms.length)
 				Result.add(temp);
 		}
 		return Result;
+	}
+	public ArrayList<Person> SearchMoreK(int k){
+		ArrayList<Person> Result= new ArrayList<Person>();
+		Iterator<Person> PerIter = Persons.iterator();
+		while(PerIter.hasNext()){
+			int NoOfPubs = 0;
+			Person temp = PerIter.next();
+			Iterator<String> Pseudos = temp.getNames().iterator();
+			while(Pseudos.hasNext()){
+				String curName = Pseudos.next();
+				if(AtoPub.get(curName)!=null){
+					NoOfPubs = NoOfPubs+AtoPub.get(curName).size();
+				}
+			}
+			if(NoOfPubs>=k)
+				Result.add(temp);
+		}
+		return Result;
+	}
+	public int[] Predict(String name,int yearUntil){
+		int[] pred_act = new int[2];
+		Iterator<Person> PerIter = Persons.iterator();
+		Person RelPerson;
+		while(PerIter.hasNext()){
+			boolean f=false;
+			Person temp = PerIter.next();
+			Iterator<String> names = temp.getNames().iterator();
+			while(names.hasNext()){
+				if(name.equalsIgnoreCase(names.next())){
+					f=true;
+					break;
+				}
+			}
+			if(f){
+				RelPerson=temp;
+				break;
+			}
+		}
+		
+		return pred_act;
 	}
 }

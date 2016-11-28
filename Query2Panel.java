@@ -3,8 +3,8 @@
  */
 
 import java.awt.*;
-import java.awt.event.ActionListener;
 import java.awt.event.*;
+import java.util.*;
 
 import javax.swing.*;
 
@@ -50,6 +50,7 @@ public class Query2Panel extends JPanel{
 		SearchButton = new JButton("Search");
 		SearchButton.setPreferredSize(new Dimension(100,20));
 		SearchButton.setMinimumSize(new Dimension(100,20));
+		SearchButton.addActionListener(new SearchButtonActionListener());
 		ResetButton = new JButton("Reset");
 		ResetButton.setPreferredSize(new Dimension(100,20));
 		ResetButton.setMinimumSize(new Dimension(100,20));
@@ -77,5 +78,22 @@ public class Query2Panel extends JPanel{
 	public void Q2Reset(){
 		RP.Reset();
 		noOfPub.setText("");
+	}
+	private class SearchButtonActionListener implements ActionListener{
+		public void actionPerformed(ActionEvent arg0) {
+			if(noOfPub.getText().equals("")){
+				JOptionPane.showMessageDialog(null, "Enter Search Method and/or Search Tag.");
+			}
+			else{
+				try{
+					ArrayList<Person> Result = DB.SearchMoreK(Integer.parseInt(noOfPub.getText()));
+					if(Result!=null)
+						RP.addResultPerson(Result);
+				}
+				catch(Exception e){
+					JOptionPane.showMessageDialog(null, "Invalid Input.");
+				}
+			}
+		}
 	}
 }
