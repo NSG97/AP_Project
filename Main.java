@@ -20,10 +20,10 @@ public class Main {
 			 
 			 File inputFile = new File("dblp.xml");
 			 InputStream inputStream = new FileInputStream(inputFile);
-			 Reader reader = new InputStreamReader(inputStream,"ISO-8859-1");
+			 Reader reader = new InputStreamReader(inputStream,"UTF-8");
 			 
 			 InputSource is = new InputSource(reader);
-			 is.setEncoding("ISO-8859-1");
+			 is.setEncoding("UTF-8");
 			 
 			 SAXParserFactory factory = SAXParserFactory.newInstance();
 			 SAXParser saxParser = factory.newSAXParser();

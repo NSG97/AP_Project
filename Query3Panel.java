@@ -103,7 +103,7 @@ public class Query3Panel extends JPanel  {
 			else{
 				try{
 					float[] pred_act = DB.Predict(author_name.getText(),Integer.parseInt(year_of_prediction.getText()));
-					float deviation = Math.abs(pred_act[0]-pred_act[1])/(pred_act[1]);
+					float deviation = Math.abs(pred_act[0]-pred_act[1])/(pred_act[1])*100;
 					JOptionPane.showMessageDialog(null, "Predicted: "+pred_act[0]+"\nActual: "+pred_act[1]+"\nDeviation: "+deviation+"%");
 				}
 				catch(Exception e){

@@ -148,15 +148,14 @@ public class Database extends DefaultHandler{
 		}
 		xMean = xMean/xToy.size();
 		yMean = yMean/xToy.size();
-		float xSig=0,ySig=0,x2Sig=0;
+		float xySig=0,x2Sig=0;
 		Xs = xToy.keySet().iterator();
 		while(Xs.hasNext()){
 			Integer xi = Xs.next();
-			xSig = xSig + (xi-xMean);
-			ySig = ySig + (xToy.get(xi)-yMean);
+			xySig = xySig + (xToy.get(xi)-yMean)*(xi-xMean);
 			x2Sig = x2Sig + (xi-xMean)*(xi-xMean);
 		}
-		float b = (xSig*ySig)/x2Sig;
+		float b = xySig/x2Sig;
 		float a = yMean-b*xMean;
 		return (a+b*x);
 	}
