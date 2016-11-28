@@ -91,12 +91,16 @@ public class Query3Panel extends JPanel  {
 		this.add(ResetButton,gbc);
 	}
 	private void Q3Reset(){
+		ResetButton.setForeground(Color.BLUE);
+		SearchButton.setForeground(null);
 		author_name.setText("---");
 		year_of_prediction.setText("---");
 		
 	}
 	private class SearchButtonActionListener implements ActionListener{
 		public void actionPerformed(ActionEvent arg0) {
+			SearchButton.setForeground(Color.BLUE);
+			ResetButton.setForeground(null);
 			if(author_name.getText().equals("") || year_of_prediction.getText().equals("")){
 				JOptionPane.showMessageDialog(null, "Enter No. of Publications.");
 			}

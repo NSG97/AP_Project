@@ -76,11 +76,16 @@ public class Query2Panel extends JPanel{
 		this.add(ResetButton,gbc);
 	}
 	public void Q2Reset(){
+		ResetButton.setForeground(Color.BLUE);
+		SearchButton.setForeground(null);
 		RP.Reset();
 		noOfPub.setText("");
 	}
 	private class SearchButtonActionListener implements ActionListener{
+		
 		public void actionPerformed(ActionEvent arg0) {
+			SearchButton.setForeground(Color.BLUE);
+			ResetButton.setForeground(null);
 			if(noOfPub.getText().equals("")){
 				JOptionPane.showMessageDialog(null, "Enter No. of Publications.");
 			}

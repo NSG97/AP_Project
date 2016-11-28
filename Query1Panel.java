@@ -143,6 +143,8 @@ public class Query1Panel extends JPanel{
 		this.add(ResetButton,gbc);
 	}
 	public void Q1Reset(){
+		ResetButton.setForeground(Color.BLUE);
+		SearchButton.setForeground(null);
 		RP.Reset();
 		sr_name_title.setText("");
 		sr_year_since.setText("");
@@ -152,6 +154,8 @@ public class Query1Panel extends JPanel{
 	}
 	private class SearchButtonActionListener implements ActionListener{
 		public void actionPerformed(ActionEvent arg0) {
+			SearchButton.setForeground(Color.BLUE);
+			ResetButton.setForeground(null);
 			if(searchby.getSelectedItem().equals("Search By") || sr_name_title.getText().equals("")){
 				JOptionPane.showMessageDialog(null, "Enter Search Method and/or Search Tag.");
 			}
