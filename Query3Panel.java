@@ -1,3 +1,7 @@
+/*
+ * class responsible for creating query3 panel
+ */
+
 import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
