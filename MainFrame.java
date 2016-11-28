@@ -1,3 +1,10 @@
+/*
+ * Main GUI class
+ */
+
+
+
+
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
@@ -10,6 +17,8 @@ public class MainFrame extends JFrame{
 	ResultPanel RP = new ResultPanel();
 	Query1Panel Q1;
 	Query2Panel Q2;
+	Query3Panel Q3;
+	
 	MainFrame(Database SharedDB){
 		DB = SharedDB;
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -17,6 +26,7 @@ public class MainFrame extends JFrame{
 		setUpMainPanel();
 		Q1=new Query1Panel(RP,DB);
 		Q2=new Query2Panel(RP,DB);
+		Q3=new Query3Panel(RP,DB);
 		this.add(MainPanel);
 		this.setVisible(true);
 	}
@@ -91,7 +101,7 @@ public class MainFrame extends JFrame{
 					MainFrame.this.setToQuery2();
 				}
 				else if(item.equals("Query3")){
-					
+					MainFrame.this.setToQuery3();
 				}
 			}
 		});
@@ -121,6 +131,13 @@ public class MainFrame extends JFrame{
 	private void setToQuery2(){
 		QueryPanel.removeAll();
 		QueryPanel.add(Q2);
+		QueryPanel.revalidate();
+		QueryPanel.repaint();
+	}
+	private void setToQuery3(){
+		//Q3.Q3Reset();
+		QueryPanel.removeAll();
+		QueryPanel.add(Q3);
 		QueryPanel.revalidate();
 		QueryPanel.repaint();
 	}
