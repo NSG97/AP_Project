@@ -14,12 +14,12 @@ public class Query2Panel extends JPanel{
 	JButton SearchButton,ResetButton;
 	JLabel sr_noOfPub;
 	JTextField noOfPub;
-	Database DB;
 	ResultPanel RP;
-	Query2Panel(ResultPanel SharedRP,Database SharedDB){
+	Database DB;
+	Query2Panel(Database SharedDB,ResultPanel SharedRP){
 		super();
 		RP = SharedRP;
-		DB = SharedDB;
+		DB=SharedDB;
 		this.setPreferredSize(new Dimension(300,390));
 		this.setMinimumSize(new Dimension(300,390));
 		this.setBorder(BorderFactory.createLineBorder(Color.black));
@@ -76,16 +76,11 @@ public class Query2Panel extends JPanel{
 		this.add(ResetButton,gbc);
 	}
 	public void Q2Reset(){
-		ResetButton.setForeground(Color.BLUE);
-		SearchButton.setForeground(null);
 		RP.Reset();
 		noOfPub.setText("");
 	}
 	private class SearchButtonActionListener implements ActionListener{
-		
 		public void actionPerformed(ActionEvent arg0) {
-			SearchButton.setForeground(Color.BLUE);
-			ResetButton.setForeground(null);
 			if(noOfPub.getText().equals("")){
 				JOptionPane.showMessageDialog(null, "Enter No. of Publications.");
 			}

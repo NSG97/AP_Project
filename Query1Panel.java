@@ -17,13 +17,12 @@ public class Query1Panel extends JPanel{
 	JTextField sr_name_title,sr_year_since,sr_custom_from,sr_custom_till;
 	ButtonGroup bg;
 	GridBagConstraints gbc;
-	JButton SearchButton,ResetButton;
-	Database DB;
+	JButton SearchButton,ResetButton;;Database DB;
 	ResultPanel RP;
-	Query1Panel(ResultPanel SharedRP,Database SharedDB){
+	Query1Panel(Database SharedDB,ResultPanel SharedRP){
 		super();
+		DB=SharedDB;
 		RP = SharedRP;
-		DB = SharedDB;
 		this.setPreferredSize(new Dimension(300,390));
 		this.setMinimumSize(new Dimension(300,390));
 		this.setBorder(BorderFactory.createLineBorder(Color.black));
@@ -103,7 +102,7 @@ public class Query1Panel extends JPanel{
 		
 		bg = new ButtonGroup();
 		bg.add(yearRadio);bg.add(relRadio);
-		
+		bg.setSelected(yearRadio.getModel(),true);
 		gbc.insets=new Insets(0,0,0,0);
 		gbc.gridx=0;gbc.gridy=4;
 		gbc.gridheight=1;gbc.gridwidth=3;
@@ -143,29 +142,26 @@ public class Query1Panel extends JPanel{
 		this.add(ResetButton,gbc);
 	}
 	public void Q1Reset(){
-		ResetButton.setForeground(Color.BLUE);
-		SearchButton.setForeground(null);
 		RP.Reset();
 		sr_name_title.setText("");
 		sr_year_since.setText("");
 		sr_custom_from.setText("");
 		sr_custom_till.setText("");
-		bg.clearSelection();
+		bg.setSelected(yearRadio.getModel(),true);
 	}
 	private class SearchButtonActionListener implements ActionListener{
 		public void actionPerformed(ActionEvent arg0) {
-			SearchButton.setForeground(Color.BLUE);
-			ResetButton.setForeground(null);
 			if(searchby.getSelectedItem().equals("Search By") || sr_name_title.getText().equals("")){
 				JOptionPane.showMessageDialog(null, "Enter Search Method and/or Search Tag.");
 			}
 			else{
-				int yearFrom=0,yearTill=Integer.MAX_VALUE;
+				int yearFrom=Integer.MIN_VALUE,yearTill=Integer.MAX_VALUE;
 				try{
 					if(sr_year_since.getText().equals("")){
-						if(sr_custom_from.getText().equals("") || sr_custom_till.getText().equals("")) throw new Exception();
-						yearFrom = Integer.parseInt(sr_custom_from.getText());
-						yearTill = Integer.parseInt(sr_custom_till.getText());
+						if(!sr_custom_from.getText().equals("") || !sr_custom_till.getText().equals("")){
+							yearFrom = Integer.parseInt(sr_custom_from.getText());
+							yearTill = Integer.parseInt(sr_custom_till.getText());
+						}
 					}
 					else{
 						yearFrom = Integer.parseInt(sr_year_since.getText());
@@ -174,13 +170,10 @@ public class Query1Panel extends JPanel{
 						JOptionPane.showMessageDialog(null, "Select a sorting method");
 					else{
 						ArrayList<Publication> Result;
-						long t=System.currentTimeMillis();
-						System.out.println("Searching: "+t);
 						if(searchby.getSelectedItem().equals("Author"))
-							Result = DB.SearchAuthor(sr_name_title.getText());
+							Result = new GetAuthorSearchResult(sr_name_title.getText(),DB).getResult();
 						else
-							Result = DB.SearchTitle(sr_name_title.getText());
-						System.out.println("Searched: "+(System.currentTimeMillis()-t));
+							Result = new GetTitleSearchResult(sr_name_title.getText()).getResult();
 						Result = RP.SortByYear(Result,yearFrom,yearTill);
 						if(relRadio.isSelected()){
 							Iterator<Publication> iter = Result.iterator();

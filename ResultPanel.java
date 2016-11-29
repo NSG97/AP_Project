@@ -87,6 +87,7 @@ public class ResultPanel extends JPanel{
 		else{
 			PubResult = Result;
 			SNo=1;
+			data=new Object[20][8];
 			whichResult = 1;
 			NoOfResults.setText(""+Result.size()+" Results");
 			showNext();
@@ -100,6 +101,7 @@ public class ResultPanel extends JPanel{
 		else{
 			PerResult = Result;
 			SNo=1;
+			data=new Object[20][8];
 			whichResult = 2;
 			NoOfResults.setText(""+Result.size()+" Results");
 			showNext();
@@ -123,7 +125,7 @@ public class ResultPanel extends JPanel{
 		}
 		else if(whichResult==2){
 			int i=0;
-			if(SNo==PerResult.size()){
+			if(SNo>PerResult.size()){
 				SNo=1;
 			}
 			while(i<20 && SNo<=PerResult.size()){

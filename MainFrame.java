@@ -2,9 +2,6 @@
  * Main GUI class
  */
 
-
-
-
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
@@ -13,20 +10,20 @@ public class MainFrame extends JFrame{
 	private static final long serialVersionUID = 1L;
 	private JPanel MainPanel,QueryOptionPanel,QueryPanel;
 	private JLabel Banner;
-	private Database DB;
 	ResultPanel RP = new ResultPanel();
+	Database DB;
 	Query1Panel Q1;
 	Query2Panel Q2;
 	Query3Panel Q3;
 	
 	MainFrame(Database SharedDB){
-		DB = SharedDB;
+		DB=SharedDB;
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setSize(1000,700);
 		setUpMainPanel();
-		Q1=new Query1Panel(RP,DB);
-		Q2=new Query2Panel(RP,DB);
-		Q3=new Query3Panel(RP,DB);
+		Q1=new Query1Panel(DB,RP);
+		Q2=new Query2Panel(DB,RP);
+		Q3=new Query3Panel(DB,RP);
 		this.add(MainPanel);
 		this.setVisible(true);
 	}
@@ -135,7 +132,7 @@ public class MainFrame extends JFrame{
 		QueryPanel.repaint();
 	}
 	private void setToQuery3(){
-		//Q3.Q3Reset();
+		Q3.Q3Reset();
 		QueryPanel.removeAll();
 		QueryPanel.add(Q3);
 		QueryPanel.revalidate();
