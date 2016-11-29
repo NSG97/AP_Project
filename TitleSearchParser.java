@@ -1,26 +1,30 @@
+/**
+ * @author Nishant Gahlawat-2015151,Akash Kumar Gautam-2015011
+ */
+
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
-/*!Class to parse while searching for the right title*/
+/**Class to parse while searching for the right title*/
 public class TitleSearchParser extends ResultDatabase{
-	/*!The current publicaiton*/
+	/**< The current publication*/
 	Publication P;
-	/*!The title tag to be searched for*/
+	/**< The title tag to be searched for*/
 	String titleTag;
-	/*!String to concatenate*/
+	/**< String to concatenate*/
 	String conc="";
-	/*!boolean values for the current tag*/
+	/**< boolean values for the current tag*/
 	private boolean bTitle = false, bAuthors = false,bPages = false,bYear = false;
 	private boolean bVolume = false,bJournal = false,bURL = false;
-	/*!Constructor*/
+	/**Constructor*/
 	TitleSearchParser(String tag){
 		titleTag=tag;
 		ResultDB = new ArrayList<Publication>();
 	}
-	/*
+	/**
 	 * (non-Javadoc)
 	 * @see org.xml.sax.helpers.DefaultHandler#startElement(java.lang.String, java.lang.String, java.lang.String, org.xml.sax.Attributes)
 	 */
@@ -51,7 +55,7 @@ public class TitleSearchParser extends ResultDatabase{
 			bURL = true;
 		}
 	}
-	/*
+	/**
 	 * (non-Javadoc)
 	 * @see org.xml.sax.helpers.DefaultHandler#endElement(java.lang.String, java.lang.String, java.lang.String)
 	 */
@@ -78,7 +82,7 @@ public class TitleSearchParser extends ResultDatabase{
 			bTitle = false;
 		}
 	}
-	/*
+	/**
 	 * See if the current title is fits the search tag
 	 */
 	private boolean RightTitle(Publication curP){
@@ -95,7 +99,7 @@ public class TitleSearchParser extends ResultDatabase{
 			return true;
 		return false;
 	}
-	/*
+	/**
 	 * (non-Javadoc)
 	 * @see org.xml.sax.helpers.DefaultHandler#characters(char[], int, int)
 	 */

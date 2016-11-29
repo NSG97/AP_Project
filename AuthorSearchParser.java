@@ -1,22 +1,28 @@
+/**
+ * @author Nishant Gahlawat-2015151,Akash Kumar Gautam-2015011
+ */
+
 import java.util.ArrayList;
 import java.util.Iterator;
 
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
-//! Parser to search for the right author
+/** Parser to search for the right author*/
 public class AuthorSearchParser extends ResultDatabase{
-	/*!Current publication being read*/Publication P;
-	/*!The naems being searched for*/ArrayList<String> RelNames;
-	String conc="";
-	/*!boolean values for current tag*/
+	Publication P;/**< Current publication being read*/
+	ArrayList<String> RelNames;/**< The names being searched for*/
+	String conc="";/**< String to concatenated to*/
+	/**boolean values for current tag*/
 	private boolean bTitle = false, bAuthors = false,bPages = false,bYear = false;
 	private boolean bVolume = false,bJournal = false,bURL = false;
-	/*!Constructor*/
+	/**
+	 * Constructor
+	 */
 	AuthorSearchParser(ArrayList<String> tag){
 		RelNames=tag;
 		ResultDB = new ArrayList<Publication>();
 	}
-	/*
+	/**
 	 * (non-Javadoc)
 	 * @see org.xml.sax.helpers.DefaultHandler#startElement(java.lang.String, java.lang.String, java.lang.String, org.xml.sax.Attributes)
 	 */
@@ -47,7 +53,7 @@ public class AuthorSearchParser extends ResultDatabase{
 			bURL = true;
 		}
 	}
-	/*
+	/**
 	 * (non-Javadoc)
 	 * @see org.xml.sax.helpers.DefaultHandler#endElement(java.lang.String, java.lang.String, java.lang.String)
 	 */
@@ -74,7 +80,7 @@ public class AuthorSearchParser extends ResultDatabase{
 			bTitle = false;
 		}
 	}
-	/*
+	/**
 	 * see if the current publciation has the right title
 	 */
 	private boolean RightTitle(Publication curP){
@@ -85,7 +91,7 @@ public class AuthorSearchParser extends ResultDatabase{
 		}
 		return false;
 	}
-	/*
+	/**
 	 * (non-Javadoc)
 	 * @see org.xml.sax.helpers.DefaultHandler#characters(char[], int, int)
 	 */

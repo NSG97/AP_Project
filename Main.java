@@ -1,3 +1,7 @@
+/**
+ * @author Nishant Gahlawat-2015151,Akash Kumar Gautam-2015011
+ */
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -7,9 +11,9 @@ import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
 import org.xml.sax.InputSource;
-/*
- * Class to start off the program
- */
+
+ /** Class to start off the program*/
+ 
 public class Main {
 	
 	public static void main(String[] args){

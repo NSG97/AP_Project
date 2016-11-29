@@ -1,23 +1,28 @@
+/**
+ * @author Nishant Gahlawat-2015151,Akash Kumar Gautam-2015011
+ */
+
 import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
 import javax.swing.*;
-/*!
- * Class for the result from the searches
- */
+
+/**Class for the result from the searches*/
+ 
 public class ResultPanel extends JPanel{
 	private static final long serialVersionUID = 1L;
-	/*!Columns of the table*/String[] column_names={"S.No.","Authors","Title","Pages","Year","Volume","Journal/Booktitle","URL"};
-	/*!Panel for the table*/JPanel tPanel = new JPanel();
-	/*!Label to show no of results*/JLabel NoOfResults = new JLabel();
-	/*!The table to show the result*/JTable table;
-	/*!for the layout of the table*/GridBagConstraints gbc = new GridBagConstraints();
-	/*!Button to show the next 20 results*/JButton Next = new JButton("Next");
-	/*!Data for the table*/Object[][] data = new Object[20][8];
-	/*!Resulted Publications*/ArrayList<Publication> PubResult;
-	/*!Resulted Persons*/ArrayList<Person> PerResult;
-	int whichResult = 0/*!publication or person or none*/,SNo=0/*!SNo of results*/;
-	/*!Constructor*/
+	String[] column_names={"S.No.","Authors","Title","Pages","Year","Volume","Journal/Booktitle","URL"};//!< Columns of the table
+	JPanel tPanel = new JPanel();/**< Panel for the table*/
+	JLabel NoOfResults = new JLabel();/**< Label to show no of results*/
+	JTable table;/**< The table to show the result*/
+	GridBagConstraints gbc = new GridBagConstraints();/**< for the layout of the table*/
+	JButton Next = new JButton("Next");/**< Button to show the next 20 results*/
+	Object[][] data = new Object[20][8];/**< Data for the table*/
+	ArrayList<Publication> PubResult;/**< Resulted Publications*/
+	ArrayList<Person> PerResult;/**< Resulted Persons*/
+	int whichResult = 0;/**< publication or person or none*/
+	int SNo=0;/**< SNo of results*/
+	/**Constructor*/
 	ResultPanel(){
 		super();
 		this.setPreferredSize(new Dimension(800,600));
@@ -26,7 +31,7 @@ public class ResultPanel extends JPanel{
 		this.setLayout(new GridBagLayout());
 		SetUpTable();
 	}
-	/*!setup the table*/
+	/**setup the table*/
 	private void SetUpTable(){
 		NoOfResults.setText("No of Results");
 		gbc.insets=new Insets(0,0,0,0);
@@ -63,7 +68,7 @@ public class ResultPanel extends JPanel{
 		gbc.fill=GridBagConstraints.NONE;
 		this.add(Next,gbc);
 	}
-	/*!set up  the data in the table*/
+	/**set up  the data in the table*/
 	private void setUpTableData(){
 		table = new JTable(data,column_names);
 		table.setPreferredSize(new Dimension(800,400));
@@ -71,7 +76,7 @@ public class ResultPanel extends JPanel{
 		JScrollPane sp = new JScrollPane(table);
 		tPanel.add(sp);
 	}
-	/*!reset the panel in the table*/
+	/**reset the panel in the table*/
 	public void Reset(){
 		NoOfResults.setText("No Of Results.");
 		tPanel.removeAll();
@@ -81,7 +86,7 @@ public class ResultPanel extends JPanel{
 		tPanel.repaint();
 		whichResult=0;
 	}
-	/*!add resulted publications to the table*/
+	/**add resulted publications to the table*/
 	public void addResultPublication(ArrayList<Publication> Result){
 		if(Result.size()==0){
 			JOptionPane.showMessageDialog(null, "No Result.");
@@ -95,7 +100,7 @@ public class ResultPanel extends JPanel{
 			showNext();
 		}
 	}
-	/*!add resulted persons to the table*/
+	/**add resulted persons to the table*/
 	public void addResultPerson(ArrayList<Person> Result){
 		if(Result.size()==0){
 			JOptionPane.showMessageDialog(null, "No Result.");
@@ -109,7 +114,7 @@ public class ResultPanel extends JPanel{
 			showNext();
 		}
 	}
-	/*!Show the next 20 results*/
+	/**Show the next 20 results*/
 	private void showNext(){
 		if(whichResult==1){
 			int i=0;
@@ -140,7 +145,7 @@ public class ResultPanel extends JPanel{
 			tPanel.revalidate();
 		}
 	}
-	/*!sort the result by year*/
+	/**sort the result by year*/
 	public ArrayList<Publication> SortByYear(ArrayList<Publication> Result,int from,int till){
 		ArrayList<Publication> newResult = new ArrayList<Publication>();
 		Iterator<Publication> iter = Result.iterator();

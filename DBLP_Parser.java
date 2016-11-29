@@ -1,17 +1,21 @@
+/**
+ * @author Nishant Gahlawat-2015151,Akash Kumar Gautam-2015011
+ */
+
 import java.util.ArrayList;
 import java.util.Iterator;
 
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
-/*
- * Class for the initial parsing of the XML Document, building up the entity resolution
- */
+
+ /**Class for the initial parsing of the XML Document, building up the entity resolution*/
+ 
 public class DBLP_Parser extends Database{
-	/*! A new author generated from <www> tag*/private Person newAuthor;
-	/*! Condition for if a new author is availabel*/private boolean bAuthors = false;
-	/*! List of authors for current publication*/private ArrayList<String> pubAuthors;
-	/*! Current author String*/String aut = "";
-	/*
+	private Person newAuthor;/** A new author generated from <www> tag*/
+	private boolean bAuthors = false;/** Condition for if a new author is available*/
+	private ArrayList<String> pubAuthors;/** List of authors for current publication*/
+	String aut = "";//!< Current author String
+	/**
 	 * Start a tag element
 	 * (non-Javadoc)
 	 * @see org.xml.sax.helpers.DefaultHandler#startElement(java.lang.String, java.lang.String, java.lang.String, org.xml.sax.Attributes)
@@ -28,7 +32,7 @@ public class DBLP_Parser extends Database{
 			bAuthors = true;
 		}
 	}
-	/*
+	/**
 	 * End a tag element
 	 * (non-Javadoc)
 	 * @see org.xml.sax.helpers.DefaultHandler#endElement(java.lang.String, java.lang.String, java.lang.String)
@@ -67,7 +71,7 @@ public class DBLP_Parser extends Database{
 			bAuthors = false;
 		}
 	}
-	/*
+	/**
 	 * read characters in tag
 	 * (non-Javadoc)
 	 * @see org.xml.sax.helpers.DefaultHandler#characters(char[], int, int)

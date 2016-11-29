@@ -1,13 +1,17 @@
+/**
+ * @author Nishant Gahlawat-2015151,Akash Kumar Gautam-2015011
+ */
+
 import java.io.File;
 import java.util.ArrayList;
 
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
-//! Class to parse through the XMl ins earch of right author
+/** Class to parse through the XMl ins earch of right author*/
 public class GetAuthorSearchResult {
-	//! Resulting database
+	/**< Resulting database*/
 	private ResultDatabase RDB;
-	//! Constructor and parser
+	/**< Constructor and parser*/
 	GetAuthorSearchResult(String tag,Database DB){
 		try{
 			ArrayList<String> RelevantNames = DB.getRelevantNames(tag);
@@ -31,7 +35,7 @@ public class GetAuthorSearchResult {
 			 e.printStackTrace();
 		 }
 	}
-	//! REturn the result
+	/** REturn the result*/
 	public ArrayList<Publication> getResult(){
 		return RDB.getResult();
 	}

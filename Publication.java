@@ -1,18 +1,22 @@
+/**
+ * @author Nishant Gahlawat-2015151,Akash Kumar Gautam-2015011
+ */
+
 import java.util.*;
 import java.util.regex.*;
-/*
- * Class for the publications in the database, notably the resulted ones
- */
+
+ /**Class for the publications in the database, notably the resulted ones*/
+ 
 public class Publication{
-	private String Title = "---";/*!Title of publication*/
-	private ArrayList<String> Authors = new ArrayList<String>();/*!Authors of publication*/
-	private Integer year;/*!year of publication*/
-	private String pages = "---";/*!pages in the publication*/
-	private String volume = "---";/*!volume of the published journal/book */
-	private String journal = "---";/*!journal/bbok realesed in*/
-	private String url = "---";/*!url for the publication*/
-	private int ExRel = 0,ExSpRel=0;/*!Relevance according to the tag*/
-	/*
+	private String Title = "---";/** Title of publication*/
+	private ArrayList<String> Authors = new ArrayList<String>();/** Authors of publication*/
+	private Integer year;/** year of publication*/
+	private String pages = "---";/** pages in the publication*/
+	private String volume = "---";/** volume of the published journal/book */
+	private String journal = "---";/** journal/bbok realesed in*/
+	private String url = "---";/** url for the publication*/
+	private int ExRel = 0,ExSpRel=0;/** Relevance according to the tag*/
+	/**
 	 * Setters
 	 */
 	public void setTitle(String _title){
@@ -36,14 +40,14 @@ public class Publication{
 	public void setURL(String _url){
 		url=_url;
 	}
-	/*
+	/**
 	 * Get the authors of the publication
 	 */
 	public ArrayList<String> getAuthors()
 	{
 		return Authors;
 	}
-	/*
+	/**
 	 * Getters
 	 */
 	public String getTitle(){
@@ -56,9 +60,9 @@ public class Publication{
 		String[] str ={""+i+"",Authors.toString(),Title,pages,""+year+"",volume,journal,url};
 		return str;
 	}
-	/*
-	 * For comparision and sorting
-	 */
+	
+	 /**For comparision and sorting*/
+	 
 	public int compareYear(Publication arg0) {
 		if(this.year==null)
 			return Integer.MAX_VALUE;
@@ -67,9 +71,9 @@ public class Publication{
 		else
 			return (this.year-arg0.year);
 	}
-	/*
-	 * setting the relevance according to tag(Auhtors)
-	 */
+	
+	/**setting the relevance according to tag(Auhtors)*/
+	 
 	public void setRelevanceByAuthor(String tag){
 		String terms[] = tag.split(" ");
 		int exact=0;int exactSplit=0;
@@ -91,9 +95,9 @@ public class Publication{
 		}
 		ExRel=exact;ExSpRel=exactSplit;
 	}
-	/*
-	 * setting the relevance according to tag(Title)
-	 */
+	
+	 /**setting the relevance according to tag(Title)*/
+	 
 	public void setRelevanceByTitle(String tag){
 		String terms[] = tag.split(" ");
 		int exact=0;int exactSplit=0;
@@ -110,9 +114,9 @@ public class Publication{
 		}
 		ExRel=exact;ExSpRel=exactSplit;
 	}
-	/*
-	 * For comparision and sorting
-	 */
+	
+	/**For comparision and sorting*/
+	 
 	public int compareRel(Publication arg0){
 		if(this.ExRel>arg0.ExRel)
 			return 1;

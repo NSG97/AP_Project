@@ -1,5 +1,5 @@
-/*
- * class responsible for creating query2 panel
+/**
+ * @author Nishant Gahlawat-2015151,Akash Kumar Gautam-2015011
  */
 
 import java.awt.*;
@@ -8,15 +8,17 @@ import java.util.*;
 
 import javax.swing.*;
 
+/** class responsible for creating query2 panel*/
+
 public class Query2Panel extends JPanel{
-	private static final long serialVersionUID = 1L;
-	/*!For the layout of the panel*/GridBagConstraints gbc;
-	/*!Buttons for Search anf Reset*/JButton SearchButton,ResetButton;
-	/*!Labels for indicating what the field is for*/JLabel sr_noOfPub;
-	/*!TextFiels to get k*/JTextField noOfPub;
-	/*!The ResultPanel which gets the result*/ResultPanel RP;
-	/*!Teh Database which result is got from*/Database DB;
-	/*!Constructor*/
+	private static final long serialVersionUID = 1L;	
+	GridBagConstraints gbc;/**!For the layout of the panel*/
+	JButton SearchButton,ResetButton;/**!Buttons for Search and Reset*/
+	JLabel sr_noOfPub;/**Labels for indicating what the field is for*/
+	JTextField noOfPub;/**TextField*/;
+	ResultPanel RP;/**The ResultPanel which gets the result*/
+	Database DB;/**The Database which result is got from*/
+	/**Constructor*/
 	Query2Panel(Database SharedDB,ResultPanel SharedRP){
 		super();
 		RP = SharedRP;
@@ -29,7 +31,7 @@ public class Query2Panel extends JPanel{
 		addFillPublication();
 		addButtons();
 	}
-	/*!Add the fields and labels for panel*/
+	/**Add the fields and labels for panel*/
 	private void addFillPublication(){
 		sr_noOfPub = new JLabel("Enter No of Publications: ");
 		gbc.gridx=0;gbc.gridy=0;
@@ -47,7 +49,7 @@ public class Query2Panel extends JPanel{
 		gbc.fill=GridBagConstraints.HORIZONTAL;
 		this.add(noOfPub,gbc);
 	}
-	/*!Add the search and reset buttons to the panel*/
+	/**Add the search and reset buttons to the panel*/
 	private void addButtons(){
 		SearchButton = new JButton("Search");
 		SearchButton.setPreferredSize(new Dimension(100,20));
@@ -77,12 +79,12 @@ public class Query2Panel extends JPanel{
 		gbc.fill=GridBagConstraints.NONE;
 		this.add(ResetButton,gbc);
 	}
-	/*!Reset the panel*/
+	/**Reset the panel*/
 	public void Q2Reset(){
 		RP.Reset();
 		noOfPub.setText("");
 	}
-	/*!Action for the search button*/
+	/**Action for the search button*/
 	private class SearchButtonActionListener implements ActionListener{
 		public void actionPerformed(ActionEvent arg0) {
 			if(noOfPub.getText().equals("")){

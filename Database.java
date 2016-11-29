@@ -1,18 +1,20 @@
-/*
- * This class is responsible for maintaining databases in form of array lists and hash maps
+/**
+ * @author Nishant Gahlawat-2015151,Akash Kumar Gautam-2015011
  */
-
 
 import java.util.*;
 import java.util.regex.*;
 
 import org.xml.sax.helpers.DefaultHandler;
 
+/** This class is responsible for maintaining databases in form of array lists and hash maps*/
 public class Database extends DefaultHandler{
-	protected ArrayList<Person> Persons = new ArrayList<Person>(); /*!List of authors in the XML*/
-	protected HashMap<String,Integer> autToNo = new HashMap<String,Integer>(); /*!No of Publications per author, mapped*/
+	/**List of authors in the XML*/
+	protected ArrayList<Person> Persons = new ArrayList<Person>(); 
+	/**No of Publications per author, mapped*/
+	protected HashMap<String,Integer> autToNo = new HashMap<String,Integer>(); 
 	
-	/*
+	/**
 	 * Function to get the relevant names when searching for a name
 	 */
 	public ArrayList<String> getRelevantNames(String tag){
@@ -40,7 +42,7 @@ public class Database extends DefaultHandler{
 		}
 		return RelevantNames;
 	}
-	/*
+	/**
 	 * Function to get the various names of the author with the exact name from String name
 	 */
 	public ArrayList<String> getExactNames(String name){
@@ -66,7 +68,7 @@ public class Database extends DefaultHandler{
 		}
 		return RelPerson.getNames();
 	}
-	/*
+	/**
 	 * Function to search for authors with more than k publications
 	 */
 	public ArrayList<Person> SearchMoreK(int k){

@@ -1,15 +1,19 @@
+/**
+ * @author Nishant Gahlawat-2015151,Akash Kumar Gautam-2015011
+ */
+
 import java.io.*;
 import java.util.*;
 
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
-/*
- * Class to parse through XML in search of right title
- */
+
+/**Class to parse through XML in search of right title*/
+ 
 public class GetTitleSearchResult {
-	//! Resulting Database
+	/**< Resulting Database*/
 	private ResultDatabase RDB;
-	//! Constructor and parser
+	/**< Constructor and parser*/
 	GetTitleSearchResult(String tag){
 		try{
 			 

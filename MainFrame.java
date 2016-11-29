@@ -1,17 +1,22 @@
+/**
+ * @author Nishant Gahlawat-2015151,Akash Kumar Gautam-2015011
+ */
+
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
-//! The Frame containing all the panels
+/** The Frame containing all the panels*/
+
 public class MainFrame extends JFrame{
 	private static final long serialVersionUID = 1L;
-	/*!Panels on the frame*/private JPanel MainPanel,QueryOptionPanel,QueryPanel;
-	/*!Banner on top*/private JLabel Banner;
-	/*!ResultPanel holding results*/ResultPanel RP = new ResultPanel();
-	/*!Database for entity resolution*/Database DB;
-	/*!Query 1 Panel - search by author or title*/Query1Panel Q1;
-	/*!Query 2 Panel - search more than k*/Query2Panel Q2;
-	/*!Query 3 Panel - prediction*/Query3Panel Q3;
-	/*!Constructor*/
+	private JPanel MainPanel,QueryOptionPanel,QueryPanel; /**< Mainpanel distribution */
+	private JLabel Banner;/**< banner label */
+	ResultPanel RP = new ResultPanel();
+	Database DB;/**< database */
+	Query1Panel Q1;/**< query1panel */
+	Query2Panel Q2;/**<query2panel */
+	Query3Panel Q3;/**< query3panel */
+	/**Constructor*/
 	MainFrame(Database SharedDB){
 		DB=SharedDB;
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -23,7 +28,7 @@ public class MainFrame extends JFrame{
 		this.add(MainPanel);
 		this.setVisible(true);
 	}
-	/*!setup the frame and the panels*/
+	/**setup the frame and the panels*/
 	private void setUpMainPanel(){
 		MainPanel = new JPanel();
 		MainPanel.setLayout(new GridBagLayout());
@@ -70,7 +75,7 @@ public class MainFrame extends JFrame{
 		gbc.fill=GridBagConstraints.BOTH;
 		MainPanel.add(RP,gbc);
 	}
-	/*!Set up panel to contain qury1,query2,query3 panels option drop down*/
+	/**Set up panel to contain qury1,query2,query3 panels option drop down*/
 	private void setUpQueryOptionPanel(){
 		QueryOptionPanel = new JPanel();
 		QueryOptionPanel.setPreferredSize(new Dimension(300,50));
@@ -100,20 +105,20 @@ public class MainFrame extends JFrame{
 			}
 		});
 	}
-	/*!Panel to contain the required panel*/
+	/**Panel to contain the required panel*/
 	private void setUpQueryPanel(){
 		QueryPanel = new JPanel();
 		QueryPanel.setPreferredSize(new Dimension(300,400));
 		QueryPanel.setMinimumSize(new Dimension(300,400));
 		QueryPanel.setBorder(BorderFactory.createLineBorder(Color.black));
 	}
-	/*!Remove all optioned query - blank*/
+	/**Remove all optioned query - blank*/
 	private void setToQueryDefault(){
 		QueryPanel.removeAll();
 		QueryPanel.revalidate();
 		QueryPanel.repaint();
 	}
-	/*!Set space for query 1*/
+	/**Set space for query 1*/
 	private void setToQuery1(){
 		Q1.Q1Reset();
 		QueryPanel.removeAll();
@@ -121,14 +126,14 @@ public class MainFrame extends JFrame{
 		QueryPanel.revalidate();
 		QueryPanel.repaint();
 	}
-	/*!set space for query 2*/
+	/**set space for query 2*/
 	private void setToQuery2(){
 		QueryPanel.removeAll();
 		QueryPanel.add(Q2);
 		QueryPanel.revalidate();
 		QueryPanel.repaint();
 	}
-	/*!set space for query 3*/
+	/**set space for query 3*/
 	private void setToQuery3(){
 		Q3.Q3Reset();
 		QueryPanel.removeAll();
