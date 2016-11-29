@@ -9,6 +9,7 @@ import java.util.ArrayList;
 public class Person {
 	/** names used by author*/
 	private ArrayList<String> Names = new ArrayList<String>();
+	/** add a name used by the author*/
 	public void add(String s){
 		Names.add(s);
 	}
@@ -16,7 +17,7 @@ public class Person {
 	public int size(){
 		return Names.size();
 	}
-	/** retur the names*/
+	/** return the names*/
 	public ArrayList<String> getNames(){
 		return Names;
 	}

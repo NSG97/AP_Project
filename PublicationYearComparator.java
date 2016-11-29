@@ -8,7 +8,7 @@ import java.util.Comparator;
 
 public class PublicationYearComparator implements Comparator<Publication>{
 	/**
-	 * (non-Javadoc)
+	 * (non-Javadoc) Comparing the year
 	 * @see java.util.Comparator#compare(java.lang.Object, java.lang.Object)
 	 */
 	public int compare(Publication arg0, Publication arg1) {

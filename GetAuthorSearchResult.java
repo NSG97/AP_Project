@@ -9,9 +9,9 @@ import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 /** Class to parse through the XMl ins earch of right author*/
 public class GetAuthorSearchResult {
-	/**< Resulting database*/
+	/** Resulting database*/
 	private ResultDatabase RDB;
-	/**< Constructor and parser*/
+	/** Constructor and parser*/
 	GetAuthorSearchResult(String tag,Database DB){
 		try{
 			ArrayList<String> RelevantNames = DB.getRelevantNames(tag);

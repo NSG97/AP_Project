@@ -11,10 +11,10 @@ import org.xml.sax.SAXException;
  /**Class for the initial parsing of the XML Document, building up the entity resolution*/
  
 public class DBLP_Parser extends Database{
-	private Person newAuthor;/** A new author generated from <www> tag*/
-	private boolean bAuthors = false;/** Condition for if a new author is available*/
-	private ArrayList<String> pubAuthors;/** List of authors for current publication*/
-	String aut = "";//!< Current author String
+	private Person newAuthor;/**< A new author generated from <www> tag*/
+	private boolean bAuthors = false;/**< Condition for if a new author is available*/
+	private ArrayList<String> pubAuthors;/**< List of authors for current publication*/
+	String aut = "";/**< Current author String
 	/**
 	 * Start a tag element
 	 * (non-Javadoc)

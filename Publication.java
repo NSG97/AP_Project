@@ -8,14 +8,14 @@ import java.util.regex.*;
  /**Class for the publications in the database, notably the resulted ones*/
  
 public class Publication{
-	private String Title = "---";/** Title of publication*/
-	private ArrayList<String> Authors = new ArrayList<String>();/** Authors of publication*/
-	private Integer year;/** year of publication*/
-	private String pages = "---";/** pages in the publication*/
-	private String volume = "---";/** volume of the published journal/book */
-	private String journal = "---";/** journal/bbok realesed in*/
-	private String url = "---";/** url for the publication*/
-	private int ExRel = 0,ExSpRel=0;/** Relevance according to the tag*/
+	private String Title = "---";/**< Title of publication*/
+	private ArrayList<String> Authors = new ArrayList<String>();/**< Authors of publication*/
+	private Integer year;/**< year of publication*/
+	private String pages = "---";/**< pages in the publication*/
+	private String volume = "---";/**< volume of the published journal/book */
+	private String journal = "---";/**< journal/bbok realesed in*/
+	private String url = "---";/**< url for the publication*/
+	private int ExRel = 0,ExSpRel=0;/**< Relevance according to the tag*/
 	/**
 	 * Setters
 	 */

@@ -11,7 +11,7 @@ public class MainFrame extends JFrame{
 	private static final long serialVersionUID = 1L;
 	private JPanel MainPanel,QueryOptionPanel,QueryPanel; /**< Mainpanel distribution */
 	private JLabel Banner;/**< banner label */
-	ResultPanel RP = new ResultPanel();
+	ResultPanel RP = new ResultPanel();/**< Panel to display results*/
 	Database DB;/**< database */
 	Query1Panel Q1;/**< query1panel */
 	Query2Panel Q2;/**<query2panel */

@@ -9,16 +9,16 @@ import javax.swing.*;
 /**Panel class for query 1*/
 public class Query1Panel extends JPanel{
 	private static final long serialVersionUID = 1L;
-	private String[] search_type;/** search by author or title*/
-	JComboBox<String> searchby;/** ComboBox for choice of author or title*/
-	JLabel name_title,year_since,custom_range;/** Label for indication of what is to be entered*/
-	JRadioButton yearRadio,relRadio;/** Radio buttons to set select sorting method*/
-	JTextField sr_name_title,sr_year_since,sr_custom_from,sr_custom_till;/** TextFields for input*/
-	ButtonGroup bg;/** ButtonGroup for the readio buttons*/
-	GridBagConstraints gbc;/** for the layout*/
-	JButton SearchButton,ResetButton;/**Buttons to search and reset*/
-	Database DB;/** Database for the search*/
-	ResultPanel RP;/**Result Panel to give the result to*/
+	private String[] search_type;/**< search by author or title*/
+	JComboBox<String> searchby;/**< ComboBox for choice of author or title*/
+	JLabel name_title,year_since,custom_range;/**< Label for indication of what is to be entered*/
+	JRadioButton yearRadio,relRadio;/**< Radio buttons to set select sorting method*/
+	JTextField sr_name_title,sr_year_since,sr_custom_from,sr_custom_till;/**< TextFields for input*/
+	ButtonGroup bg;/**< ButtonGroup for the readio buttons*/
+	GridBagConstraints gbc;/**< for the layout*/
+	JButton SearchButton,ResetButton;/**< Buttons to search and reset*/
+	Database DB;/**< Database for the search*/
+	ResultPanel RP;/**< Result Panel to give the result to*/
 	/**Constructor*/
 	Query1Panel(Database SharedDB,ResultPanel SharedRP){
 		super();

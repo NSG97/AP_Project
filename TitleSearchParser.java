@@ -10,14 +10,15 @@ import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 /**Class to parse while searching for the right title*/
 public class TitleSearchParser extends ResultDatabase{
-	/**< The current publication*/
+	/** The current publication*/
 	Publication P;
-	/**< The title tag to be searched for*/
+	/** The title tag to be searched for*/
 	String titleTag;
-	/**< String to concatenate*/
+	/** String to concatenate*/
 	String conc="";
-	/**< boolean values for the current tag*/
+	/** boolean values for the current tag*/
 	private boolean bTitle = false, bAuthors = false,bPages = false,bYear = false;
+	/** boolean values for the current tag*/
 	private boolean bVolume = false,bJournal = false,bURL = false;
 	/**Constructor*/
 	TitleSearchParser(String tag){

@@ -20,7 +20,7 @@ public class ResultPanel extends JPanel{
 	Object[][] data = new Object[20][8];/**< Data for the table*/
 	ArrayList<Publication> PubResult;/**< Resulted Publications*/
 	ArrayList<Person> PerResult;/**< Resulted Persons*/
-	int whichResult = 0;/**< publication or person or none*/
+	int whichResult = 0;/**< publication for person or none*/
 	int SNo=0;/**< SNo of results*/
 	/**Constructor*/
 	ResultPanel(){

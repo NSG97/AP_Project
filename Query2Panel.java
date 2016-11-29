@@ -12,12 +12,12 @@ import javax.swing.*;
 
 public class Query2Panel extends JPanel{
 	private static final long serialVersionUID = 1L;	
-	GridBagConstraints gbc;/**!For the layout of the panel*/
-	JButton SearchButton,ResetButton;/**!Buttons for Search and Reset*/
-	JLabel sr_noOfPub;/**Labels for indicating what the field is for*/
-	JTextField noOfPub;/**TextField*/;
-	ResultPanel RP;/**The ResultPanel which gets the result*/
-	Database DB;/**The Database which result is got from*/
+	GridBagConstraints gbc;/**< For the layout of the panel*/
+	JButton SearchButton,ResetButton;/**< Buttons for Search and Reset*/
+	JLabel sr_noOfPub;/**< Labels for indicating what the field is for*/
+	JTextField noOfPub;/**< TextField*/;
+	ResultPanel RP;/**< The ResultPanel which gets the result*/
+	Database DB;/**< The Database which result is got from*/
 	/**Constructor*/
 	Query2Panel(Database SharedDB,ResultPanel SharedRP){
 		super();
