@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-
 import java.util.Iterator;
 
 import org.xml.sax.Attributes;
@@ -8,6 +7,7 @@ import org.xml.sax.SAXException;
 public class AuthorSearchParser extends ResultDatabase{
 	/*!Current publication being read*/Publication P;
 	/*!The naems being searched for*/ArrayList<String> RelNames;
+	String conc="";
 	/*!boolean values for current tag*/
 	private boolean bTitle = false, bAuthors = false,bPages = false,bYear = false;
 	private boolean bVolume = false,bJournal = false,bURL = false;
@@ -59,6 +59,20 @@ public class AuthorSearchParser extends ResultDatabase{
 			}
 			P=null;
 		}
+		else if(qName.equalsIgnoreCase("author")){
+			if(P!=null){
+				P.addAuthor(conc);
+			}
+			conc="";
+			bAuthors = false;
+		}
+		else if(qName.equalsIgnoreCase("title")){
+			if(P!=null){
+				P.setTitle(conc);
+			}
+			conc="";
+			bTitle = false;
+		}
 	}
 	/*
 	 * see if the current publciation has the right title
@@ -77,16 +91,10 @@ public class AuthorSearchParser extends ResultDatabase{
 	 */
 	public void characters(char ch[], int start,int length) throws SAXException {
 		if(bTitle){ 
-			if(P!=null){
-				P.setTitle(new String(ch,start,length));
-			}
-			bTitle = false;
+			conc=conc+new String(ch,start,length);
 		}
 		else if(bAuthors){
-			if(P!=null){
-				P.addAuthor(new String(ch,start,length));
-			}
-			bAuthors = false;
+			conc=conc+new String(ch,start,length);
 		}
 		else if(bPages){
 			if(P!=null){

@@ -7,9 +7,10 @@ import org.xml.sax.SAXException;
  * Class for the initial parsing of the XML Document, building up the entity resolution
  */
 public class DBLP_Parser extends Database{
-	private Person newAuthor;/*! A new author generated from <www> tag*/
-	private boolean bAuthors = false;/*! Condition for if a new author is availabel*/
-	private ArrayList<String> pubAuthors;/*! List of authors for current publication*/
+	/*! A new author generated from <www> tag*/private Person newAuthor;
+	/*! Condition for if a new author is availabel*/private boolean bAuthors = false;
+	/*! List of authors for current publication*/private ArrayList<String> pubAuthors;
+	/*! Current author String*/String aut = "";
 	/*
 	 * Start a tag element
 	 * (non-Javadoc)
@@ -55,6 +56,16 @@ public class DBLP_Parser extends Database{
 			}
 			newAuthor=null;
 		}
+		else if(qName.equalsIgnoreCase("author")){
+			if(newAuthor!=null){
+				newAuthor.add(aut);
+			}
+			else if(pubAuthors!=null){
+				pubAuthors.add(aut);
+			}
+			aut="";
+			bAuthors = false;
+		}
 	}
 	/*
 	 * read characters in tag
@@ -63,13 +74,7 @@ public class DBLP_Parser extends Database{
 	 */
 	public void characters(char ch[], int start,int length) throws SAXException {
 		if(bAuthors){
-			if(newAuthor!=null){
-				newAuthor.add(new String(ch,start,length));
-			}
-			else if(pubAuthors!=null){
-				pubAuthors.add(new String(ch,start,length));
-			}
-			bAuthors = false;
+			aut = aut + new String(ch,start,length);
 		}
 	}
 }

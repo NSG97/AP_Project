@@ -8,8 +8,10 @@ import org.xml.sax.SAXException;
 public class TitleSearchParser extends ResultDatabase{
 	/*!The current publicaiton*/
 	Publication P;
-	/*!The title tag to be searchedd for*/
+	/*!The title tag to be searched for*/
 	String titleTag;
+	/*!String to concatenate*/
+	String conc="";
 	/*!boolean values for the current tag*/
 	private boolean bTitle = false, bAuthors = false,bPages = false,bYear = false;
 	private boolean bVolume = false,bJournal = false,bURL = false;
@@ -61,6 +63,20 @@ public class TitleSearchParser extends ResultDatabase{
 			}
 			P=null;
 		}
+		else if(qName.equalsIgnoreCase("author")){
+			if(P!=null){
+				P.addAuthor(conc);
+			}
+			conc="";
+			bAuthors = false;
+		}
+		else if(qName.equalsIgnoreCase("title")){
+			if(P!=null){
+				P.setTitle(conc);
+			}
+			conc="";
+			bTitle = false;
+		}
 	}
 	/*
 	 * See if the current title is fits the search tag
@@ -85,16 +101,10 @@ public class TitleSearchParser extends ResultDatabase{
 	 */
 	public void characters(char ch[], int start,int length) throws SAXException {
 		if(bTitle){ 
-			if(P!=null){
-				P.setTitle(new String(ch,start,length));
-			}
-			bTitle = false;
+			conc=conc+new String(ch,start,length);
 		}
 		else if(bAuthors){
-			if(P!=null){
-				P.addAuthor(new String(ch,start,length));
-			}
-			bAuthors = false;
+			conc=conc+new String(ch,start,length);
 		}
 		else if(bPages){
 			if(P!=null){
