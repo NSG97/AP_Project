@@ -9,9 +9,12 @@ import java.util.regex.*;
 import org.xml.sax.helpers.DefaultHandler;
 
 public class Database extends DefaultHandler{
-	protected ArrayList<Person> Persons = new ArrayList<Person>();
-	protected HashMap<String,Integer> autToNo = new HashMap<String,Integer>();
+	protected ArrayList<Person> Persons = new ArrayList<Person>(); /*!List of authors in the XML*/
+	protected HashMap<String,Integer> autToNo = new HashMap<String,Integer>(); /*!No of Publications per author, mapped*/
 	
+	/*
+	 * Function to get the relevant names when searching for a name
+	 */
 	public ArrayList<String> getRelevantNames(String tag){
 		String[] terms = tag.split(" ");
 		ArrayList<String> RelevantNames = new ArrayList<String>();	
@@ -37,6 +40,9 @@ public class Database extends DefaultHandler{
 		}
 		return RelevantNames;
 	}
+	/*
+	 * Function to get the various names of the author with the exact name from String name
+	 */
 	public ArrayList<String> getExactNames(String name){
 		Iterator<Person> PerIter = Persons.iterator();
 		Person RelPerson=null;
@@ -60,6 +66,9 @@ public class Database extends DefaultHandler{
 		}
 		return RelPerson.getNames();
 	}
+	/*
+	 * Function to search for authors with more than k publications
+	 */
 	public ArrayList<Person> SearchMoreK(int k){
 		ArrayList<Person> Result= new ArrayList<Person>();
 		Iterator<Person> PerIter = Persons.iterator();

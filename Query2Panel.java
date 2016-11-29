@@ -10,12 +10,13 @@ import javax.swing.*;
 
 public class Query2Panel extends JPanel{
 	private static final long serialVersionUID = 1L;
-	GridBagConstraints gbc;
-	JButton SearchButton,ResetButton;
-	JLabel sr_noOfPub;
-	JTextField noOfPub;
-	ResultPanel RP;
-	Database DB;
+	/*!For the layout of the panel*/GridBagConstraints gbc;
+	/*!Buttons for Search anf Reset*/JButton SearchButton,ResetButton;
+	/*!Labels for indicating what the field is for*/JLabel sr_noOfPub;
+	/*!TextFiels to get k*/JTextField noOfPub;
+	/*!The ResultPanel which gets the result*/ResultPanel RP;
+	/*!Teh Database which result is got from*/Database DB;
+	/*!Constructor*/
 	Query2Panel(Database SharedDB,ResultPanel SharedRP){
 		super();
 		RP = SharedRP;
@@ -28,6 +29,7 @@ public class Query2Panel extends JPanel{
 		addFillPublication();
 		addButtons();
 	}
+	/*!Add the fields and labels for panel*/
 	private void addFillPublication(){
 		sr_noOfPub = new JLabel("Enter No of Publications: ");
 		gbc.gridx=0;gbc.gridy=0;
@@ -45,7 +47,7 @@ public class Query2Panel extends JPanel{
 		gbc.fill=GridBagConstraints.HORIZONTAL;
 		this.add(noOfPub,gbc);
 	}
-	
+	/*!Add the search and reset buttons to the panel*/
 	private void addButtons(){
 		SearchButton = new JButton("Search");
 		SearchButton.setPreferredSize(new Dimension(100,20));
@@ -75,10 +77,12 @@ public class Query2Panel extends JPanel{
 		gbc.fill=GridBagConstraints.NONE;
 		this.add(ResetButton,gbc);
 	}
+	/*!Reset the panel*/
 	public void Q2Reset(){
 		RP.Reset();
 		noOfPub.setText("");
 	}
+	/*!Action for the search button*/
 	private class SearchButtonActionListener implements ActionListener{
 		public void actionPerformed(ActionEvent arg0) {
 			if(noOfPub.getText().equals("")){

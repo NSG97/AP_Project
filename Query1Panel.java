@@ -1,24 +1,21 @@
-/*
- * class for making query1 panel
- */
-
 import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
-
 import javax.swing.*;
-
+/*!Panel class for query 1*/
 public class Query1Panel extends JPanel{
 	private static final long serialVersionUID = 1L;
-	private String[] search_type;
-	JComboBox<String> searchby;
-	JLabel name_title,year_since,custom_range;
-	JRadioButton yearRadio,relRadio;
-	JTextField sr_name_title,sr_year_since,sr_custom_from,sr_custom_till;
-	ButtonGroup bg;
-	GridBagConstraints gbc;
-	JButton SearchButton,ResetButton;;Database DB;
-	ResultPanel RP;
+	/*!search by author or title*/private String[] search_type;
+	/*!ComboBox for choice of author or title*/JComboBox<String> searchby;
+	/*!Label for indication of what is to be entered*/JLabel name_title,year_since,custom_range;
+	/*!Radio buttons to set select sorting method*/JRadioButton yearRadio,relRadio;
+	/*!TextFields for input*/JTextField sr_name_title,sr_year_since,sr_custom_from,sr_custom_till;
+	/*!ButtonGroup for the readio buttons*/ButtonGroup bg;
+	/*!for the layout*/GridBagConstraints gbc;
+	/*!Buttons to search and reset*/JButton SearchButton,ResetButton;
+	/*!Database for the search*/Database DB;
+	/*!Result Panel to give the result to*/ResultPanel RP;
+	/*!Constructor*/
 	Query1Panel(Database SharedDB,ResultPanel SharedRP){
 		super();
 		DB=SharedDB;
@@ -36,7 +33,7 @@ public class Query1Panel extends JPanel{
 		addRadioButtons();
 		addButtons();
 	}
-
+	/*!add Combo Box*/
 	private void addSearchBy(){
 		search_type=new String[]{"Search By","Author","Title"};
 		searchby=new JComboBox<String>(search_type);
@@ -45,21 +42,20 @@ public class Query1Panel extends JPanel{
 		gbc.fill=GridBagConstraints.NONE;
 		this.add(searchby,gbc);
 	}
-	
+	/*!Add label and textfield for search tag*/
 	private void addNameTitle(){
 		name_title = new JLabel("Name/Title-Tags: ");
 		gbc.gridx=0;gbc.gridy=1;
 		gbc.gridheight=1;gbc.gridwidth=1;
 		gbc.fill=GridBagConstraints.HORIZONTAL;
 		this.add(name_title,gbc);
-		
 		sr_name_title = new JTextField();
 		gbc.gridx=1;gbc.gridy=1;
 		gbc.gridheight=1;gbc.gridwidth=2;
 		gbc.fill=GridBagConstraints.HORIZONTAL;
 		this.add(sr_name_title,gbc);
 	}
-	
+	/*!add the year choices*/
 	private void addYearChoice(){
 		year_since = new JLabel("Since Year: ");
 		gbc.gridx=0;gbc.gridy=2;
@@ -95,11 +91,10 @@ public class Query1Panel extends JPanel{
 		gbc.fill=GridBagConstraints.NONE;
 		this.add(sr_custom_till,gbc);
 	}
-	
+	/*!Add the radio buttons*/
 	private void addRadioButtons() {
 		yearRadio = new JRadioButton("Sort by Year.");
 		relRadio = new JRadioButton("Sort by Relevance.");
-		
 		bg = new ButtonGroup();
 		bg.add(yearRadio);bg.add(relRadio);
 		bg.setSelected(yearRadio.getModel(),true);
@@ -108,14 +103,13 @@ public class Query1Panel extends JPanel{
 		gbc.gridheight=1;gbc.gridwidth=3;
 		gbc.fill=GridBagConstraints.HORIZONTAL;
 		this.add(yearRadio,gbc);
-		
 		gbc.insets=new Insets(0,0,0,0);
 		gbc.gridx=0;gbc.gridy=5;
 		gbc.gridheight=1;gbc.gridwidth=3;
 		gbc.fill=GridBagConstraints.HORIZONTAL;
 		this.add(relRadio,gbc);
 	}
-	
+	/*!Add teh search and reset buttons*/
 	private void addButtons(){
 		SearchButton = new JButton("Search");
 		SearchButton.setPreferredSize(new Dimension(100,20));
@@ -126,7 +120,6 @@ public class Query1Panel extends JPanel{
 		gbc.gridheight=1;gbc.gridwidth=1;
 		gbc.fill=GridBagConstraints.NONE;
 		this.add(SearchButton,gbc);
-		
 		ResetButton = new JButton("Reset");
 		ResetButton.setPreferredSize(new Dimension(100,20));
 		ResetButton.setMinimumSize(new Dimension(100,20));
@@ -141,6 +134,7 @@ public class Query1Panel extends JPanel{
 		gbc.fill=GridBagConstraints.NONE;
 		this.add(ResetButton,gbc);
 	}
+	/*!Reset the fields of the panel*/
 	public void Q1Reset(){
 		RP.Reset();
 		sr_name_title.setText("");
@@ -149,6 +143,7 @@ public class Query1Panel extends JPanel{
 		sr_custom_till.setText("");
 		bg.setSelected(yearRadio.getModel(),true);
 	}
+	/*!Action for the search button*/
 	private class SearchButtonActionListener implements ActionListener{
 		public void actionPerformed(ActionEvent arg0) {
 			if(searchby.getSelectedItem().equals("Search By") || sr_name_title.getText().equals("")){

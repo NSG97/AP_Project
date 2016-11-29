@@ -1,6 +1,3 @@
-/*
- * Class which initiates project
- */
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -10,9 +7,11 @@ import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
 import org.xml.sax.InputSource;
-
+/*
+ * Class to start off the program
+ */
 public class Main {
-
+	
 	public static void main(String[] args){
 		try{
 			 BufferedReader bf = new BufferedReader(new InputStreamReader(new FileInputStream(new File("dblp.xml")),"ISO-8859-1"));

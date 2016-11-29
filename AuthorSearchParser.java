@@ -4,19 +4,22 @@ import java.util.Iterator;
 
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
-
-
+//! Parser to search for the right author
 public class AuthorSearchParser extends ResultDatabase{
-	Publication P;
-	ArrayList<String> RelNames;
+	/*!Current publication being read*/Publication P;
+	/*!The naems being searched for*/ArrayList<String> RelNames;
+	/*!boolean values for current tag*/
 	private boolean bTitle = false, bAuthors = false,bPages = false,bYear = false;
 	private boolean bVolume = false,bJournal = false,bURL = false;
-	
+	/*!Constructor*/
 	AuthorSearchParser(ArrayList<String> tag){
 		RelNames=tag;
 		ResultDB = new ArrayList<Publication>();
 	}
-	
+	/*
+	 * (non-Javadoc)
+	 * @see org.xml.sax.helpers.DefaultHandler#startElement(java.lang.String, java.lang.String, java.lang.String, org.xml.sax.Attributes)
+	 */
 	public void startElement(String uri,String localName, String qName,Attributes attributes) throws SAXException{
 		if(qName.equalsIgnoreCase("article") || qName.equalsIgnoreCase("proceedings") || qName.equalsIgnoreCase("inproceedings") || qName.equalsIgnoreCase("incollection")
 				|| qName.equalsIgnoreCase("book") || qName.equalsIgnoreCase("phdthesis") || qName.equalsIgnoreCase("mastersthesis")){
@@ -44,7 +47,10 @@ public class AuthorSearchParser extends ResultDatabase{
 			bURL = true;
 		}
 	}
-	
+	/*
+	 * (non-Javadoc)
+	 * @see org.xml.sax.helpers.DefaultHandler#endElement(java.lang.String, java.lang.String, java.lang.String)
+	 */
 	public void endElement(String uri, String localName, String qName) throws SAXException {
 		if(qName.equalsIgnoreCase("article") || qName.equalsIgnoreCase("proceedings") || qName.equalsIgnoreCase("inproceedings") || qName.equalsIgnoreCase("incollection")
 				|| qName.equalsIgnoreCase("book") || qName.equalsIgnoreCase("phdthesis") || qName.equalsIgnoreCase("mastersthesis")){
@@ -54,7 +60,9 @@ public class AuthorSearchParser extends ResultDatabase{
 			P=null;
 		}
 	}
-	
+	/*
+	 * see if the current publciation has the right title
+	 */
 	private boolean RightTitle(Publication curP){
 		Iterator<String> names = curP.getAuthors().iterator();
 		while(names.hasNext()){
@@ -63,7 +71,10 @@ public class AuthorSearchParser extends ResultDatabase{
 		}
 		return false;
 	}
-	
+	/*
+	 * (non-Javadoc)
+	 * @see org.xml.sax.helpers.DefaultHandler#characters(char[], int, int)
+	 */
 	public void characters(char ch[], int start,int length) throws SAXException {
 		if(bTitle){ 
 			if(P!=null){

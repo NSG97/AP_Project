@@ -1,18 +1,20 @@
-/*
- * Main SAX Parser class
- */
-
 import java.util.ArrayList;
 import java.util.Iterator;
 
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
-
+/*
+ * Class for the initial parsing of the XML Document, building up the entity resolution
+ */
 public class DBLP_Parser extends Database{
-	private Person newAuthor;
-	private boolean bAuthors = false;
-	private ArrayList<String> pubAuthors;
-	
+	private Person newAuthor;/*! A new author generated from <www> tag*/
+	private boolean bAuthors = false;/*! Condition for if a new author is availabel*/
+	private ArrayList<String> pubAuthors;/*! List of authors for current publication*/
+	/*
+	 * Start a tag element
+	 * (non-Javadoc)
+	 * @see org.xml.sax.helpers.DefaultHandler#startElement(java.lang.String, java.lang.String, java.lang.String, org.xml.sax.Attributes)
+	 */
 	public void startElement(String uri,String localName, String qName,Attributes attributes) throws SAXException{
 		if(qName.equalsIgnoreCase("article") || qName.equalsIgnoreCase("proceedings") || qName.equalsIgnoreCase("inproceedings") || qName.equalsIgnoreCase("incollection")
 				|| qName.equalsIgnoreCase("book") || qName.equalsIgnoreCase("phdthesis") || qName.equalsIgnoreCase("mastersthesis")){
@@ -25,7 +27,11 @@ public class DBLP_Parser extends Database{
 			bAuthors = true;
 		}
 	}
-	
+	/*
+	 * End a tag element
+	 * (non-Javadoc)
+	 * @see org.xml.sax.helpers.DefaultHandler#endElement(java.lang.String, java.lang.String, java.lang.String)
+	 */
 	public void endElement(String uri, String localName, String qName) throws SAXException {
 		if(qName.equalsIgnoreCase("article") || qName.equalsIgnoreCase("proceedings") || qName.equalsIgnoreCase("inproceedings") || qName.equalsIgnoreCase("incollection")
 				|| qName.equalsIgnoreCase("book") || qName.equalsIgnoreCase("phdthesis") || qName.equalsIgnoreCase("mastersthesis")){
@@ -41,6 +47,7 @@ public class DBLP_Parser extends Database{
 					}
 				}
 			}
+			pubAuthors=null;
 		}
 		else if(qName.equalsIgnoreCase("www")){
 			if(newAuthor.size()!=0){
@@ -49,7 +56,11 @@ public class DBLP_Parser extends Database{
 			newAuthor=null;
 		}
 	}
-	
+	/*
+	 * read characters in tag
+	 * (non-Javadoc)
+	 * @see org.xml.sax.helpers.DefaultHandler#characters(char[], int, int)
+	 */
 	public void characters(char ch[], int start,int length) throws SAXException {
 		if(bAuthors){
 			if(newAuthor!=null){

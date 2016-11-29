@@ -3,10 +3,13 @@ import java.util.*;
 
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
-
+/*
+ * Class to parse through XML in search of right title
+ */
 public class GetTitleSearchResult {
+	//! Resulting Database
 	private ResultDatabase RDB;
-	
+	//! Constructor and parser
 	GetTitleSearchResult(String tag){
 		try{
 			 
@@ -29,7 +32,7 @@ public class GetTitleSearchResult {
 			 e.printStackTrace();
 		 }
 	}
-	
+	//! return the result
 	public ArrayList<Publication> getResult(){
 		return RDB.getResult();
 	}

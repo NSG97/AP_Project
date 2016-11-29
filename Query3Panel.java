@@ -1,6 +1,3 @@
-/*
- * class responsible for creating query3 panel
- */
 
 import java.awt.*;
 import java.awt.event.*;
@@ -13,15 +10,19 @@ import javax.swing.*;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
+/*
+ * Panel for the prediction query
+ */
 public class Query3Panel extends JPanel  {
 	private static final long serialVersionUID = 1L;
-	GridBagConstraints gbc;
-	JTextField author_name;
-	JTextField year_of_prediction;
-	JButton SearchButton;
-	JButton ResetButton;
-	ResultPanel RP;
-	Database DB;
+	/*!gbc to set the layout*/GridBagConstraints gbc;
+	/*!TextField for the author to be searched for*/JTextField author_name;
+	/*!TextField for the year to be predicted for*/JTextField year_of_prediction;
+	/*!Button to initiate search*/JButton SearchButton;
+	/*!Button to reset the fields*/JButton ResetButton;
+	/*!The ResultPanel that result goes to*/ResultPanel RP;
+	/*!The Database to get the exact names from*/Database DB;
+	/*!Constructor for Query3Panel*/
 	Query3Panel(Database SharedDB,ResultPanel SharedRP){
 		RP=SharedRP;
 		DB=SharedDB;
@@ -34,6 +35,7 @@ public class Query3Panel extends JPanel  {
 		gbc.anchor=GridBagConstraints.CENTER;
 		addButtons();
 	}
+	/*!Add the Search and Reset Buttons*/
 	private void addButtons(){
 		JLabel Enter_author = new JLabel("Enter Full Author Name: ");
 		gbc.gridx=0;gbc.gridy=0;
@@ -67,7 +69,6 @@ public class Query3Panel extends JPanel  {
 		gbc.fill=GridBagConstraints.HORIZONTAL;
 		this.add(year_of_prediction, gbc);
 		
-		
 		SearchButton = new JButton("Search");
 		SearchButton.setPreferredSize(new Dimension(100,20));
 		SearchButton.setMinimumSize(new Dimension(100,20));
@@ -96,12 +97,14 @@ public class Query3Panel extends JPanel  {
 		gbc.fill=GridBagConstraints.NONE;
 		this.add(ResetButton,gbc);
 	}
+	/*!Reset the fields*/
 	public void Q3Reset(){
 		author_name.setText("");
 		year_of_prediction.setText("");
 		RP.Reset();
 		
 	}
+	/*!The action for the Search Button*/
 	private class SearchButtonActionListener implements ActionListener{
 		public void actionPerformed(ActionEvent arg0) {
 			if(author_name.getText().equals("") || year_of_prediction.getText().equals("")){
@@ -140,6 +143,7 @@ public class Query3Panel extends JPanel  {
 			}
 		}
 	}
+	/*!Setting up the field for the prediction*/
 	private void Predict(ArrayList<Publication> pubs,int yearToPredict){
 		Iterator<Publication> pubIter = pubs.iterator();
 		float actual=0;
@@ -160,6 +164,7 @@ public class Query3Panel extends JPanel  {
 		float pred=predictNext(YearToNo,yearToPredict);
 		JOptionPane.showMessageDialog(null, "Predicted: "+pred+"\nActual: "+actual+"\nDeviation: "+((pred-actual)/actual)*100+"%");
 	}
+	/*!Predicting the next y for x according to data xToy */
 	private float predictNext(HashMap<Integer,Integer> xToy, int x){
 		Iterator<Integer> Xs = xToy.keySet().iterator();
 		float xMean=0,yMean=0;

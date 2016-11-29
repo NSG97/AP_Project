@@ -4,19 +4,24 @@ import java.util.regex.Pattern;
 
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
-
-
+/*!Class to parse while searching for the right title*/
 public class TitleSearchParser extends ResultDatabase{
+	/*!The current publicaiton*/
 	Publication P;
+	/*!The title tag to be searchedd for*/
 	String titleTag;
+	/*!boolean values for the current tag*/
 	private boolean bTitle = false, bAuthors = false,bPages = false,bYear = false;
 	private boolean bVolume = false,bJournal = false,bURL = false;
-	
+	/*!Constructor*/
 	TitleSearchParser(String tag){
 		titleTag=tag;
 		ResultDB = new ArrayList<Publication>();
 	}
-	
+	/*
+	 * (non-Javadoc)
+	 * @see org.xml.sax.helpers.DefaultHandler#startElement(java.lang.String, java.lang.String, java.lang.String, org.xml.sax.Attributes)
+	 */
 	public void startElement(String uri,String localName, String qName,Attributes attributes) throws SAXException{
 		if(qName.equalsIgnoreCase("article") || qName.equalsIgnoreCase("proceedings") || qName.equalsIgnoreCase("inproceedings") || qName.equalsIgnoreCase("incollection")
 				|| qName.equalsIgnoreCase("book") || qName.equalsIgnoreCase("phdthesis") || qName.equalsIgnoreCase("mastersthesis")){
@@ -44,7 +49,10 @@ public class TitleSearchParser extends ResultDatabase{
 			bURL = true;
 		}
 	}
-	
+	/*
+	 * (non-Javadoc)
+	 * @see org.xml.sax.helpers.DefaultHandler#endElement(java.lang.String, java.lang.String, java.lang.String)
+	 */
 	public void endElement(String uri, String localName, String qName) throws SAXException {
 		if(qName.equalsIgnoreCase("article") || qName.equalsIgnoreCase("proceedings") || qName.equalsIgnoreCase("inproceedings") || qName.equalsIgnoreCase("incollection")
 				|| qName.equalsIgnoreCase("book") || qName.equalsIgnoreCase("phdthesis") || qName.equalsIgnoreCase("mastersthesis")){
@@ -54,7 +62,9 @@ public class TitleSearchParser extends ResultDatabase{
 			P=null;
 		}
 	}
-	
+	/*
+	 * See if the current title is fits the search tag
+	 */
 	private boolean RightTitle(Publication curP){
 		String terms[] = titleTag.split(" ");
 		String curTitle = curP.getTitle();
@@ -69,7 +79,10 @@ public class TitleSearchParser extends ResultDatabase{
 			return true;
 		return false;
 	}
-	
+	/*
+	 * (non-Javadoc)
+	 * @see org.xml.sax.helpers.DefaultHandler#characters(char[], int, int)
+	 */
 	public void characters(char ch[], int start,int length) throws SAXException {
 		if(bTitle){ 
 			if(P!=null){
